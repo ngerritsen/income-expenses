@@ -1,0 +1,26 @@
+@import 'variables';
+
+$item-height: 4rem;
+
+.item {
+  background-color: darken($white, 2.5%);
+  border: 1px solid darken($white, 10%);
+  border-bottom: none;
+  height: $item-height;
+  line-height: $item-height;
+  padding: 0 1.5rem;
+
+  &:last-child {
+    border-bottom: 1px solid darken($white, 10%);
+  }
+}
+
+.item--amount {
+  font-weight: bold;
+  float: right;
+
+  &:before {
+    content: '€';
+    margin-right: 0.3rem;
+  }
+}

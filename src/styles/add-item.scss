@@ -1,0 +1,18 @@
+@import 'variables';
+
+.add-item {
+  border: none;
+  border-bottom: 1px solid darken($white, 20%);
+  align-content: stretch;
+  display: flex;
+  height: 4rem;
+  width: 100%;
+}
+
+.add-item--input-amount {
+  flex-grow: 2;
+}
+
+.add-item--input-title {
+  flex-grow: 3;
+}

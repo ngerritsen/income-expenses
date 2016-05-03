@@ -4,7 +4,7 @@ import { ADD, REMOVE, EDIT } from './constants'
 
 export function add (itemData) {
   const item = {
-    itemData,
+    ...itemData,
     id: shortid.generate()
   }
 
