@@ -18,10 +18,10 @@ const Item = ({ amount, calculated, title, id, itemType, remove, saldo }) => (
       {toCurrency(amount)}
     </span>
     <span className="item--tools">
-      {
-        !calculated &&
-        <i className="fa fa-times" onClick={e => remove(id)}></i>
-      }
+      <i
+        className="fa fa-times"
+        onClick={calculated ? null : e => remove(id)}
+      ></i>
     </span>
   </div>
 )

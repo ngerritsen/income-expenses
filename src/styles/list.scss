@@ -1,10 +1,17 @@
-.list {
-  float: left;
-  margin-bottom: 2rem;
-  width: 47.5%;
-  margin-right: 5%;
+@import 'variables';
 
-  &:last-child {
-    margin-right: 0;
+.list {
+  margin-bottom: 2rem;
+}
+
+@media screen and (min-width: $desktop) {
+  .list {
+    float: left;
+    width: 48%;
+    margin-right: 4%;
+
+    &:last-child {
+      margin-right: 0;
+    }
   }
 }

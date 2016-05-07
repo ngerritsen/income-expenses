@@ -1,0 +1,12 @@
+@import 'variables';
+@import 'spinner';
+
+.loader {
+  margin-top: 30vh;
+  text-align: center;
+
+  // Custom overrides
+  .spinner > div {
+      background-color: darken($white, 30%);
+  }
+}

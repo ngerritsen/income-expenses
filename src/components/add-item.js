@@ -24,8 +24,9 @@ const AddItem = ({ add, itemType, responsible }) => {
         className="add-item--input-amount"
         placeholder="Bedrag"
         type="number"
+        step="any"
       />
-      <button type="submit" className="add-item--submit">Submit</button>
+      <button type="submit" className="add-item--submit">Toevoegen</button>
     </form>
   )
 }

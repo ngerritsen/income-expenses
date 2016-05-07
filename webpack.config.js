@@ -1,4 +1,7 @@
-module.exports = {
+var webpack = require('webpack')
+
+var env = process.env.NODE_ENV
+var config = {
   devtool: 'cheap-module-eval-source-map',
   entry: './src/main.js',
   output: {
@@ -18,5 +21,27 @@ module.exports = {
         loaders: ['style', 'css', 'sass']
       }
     ]
-  }
+  },
+  plugins: [
+    new webpack.optimize.OccurenceOrderPlugin(),
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': JSON.stringify(env)
+    })
+  ]
 }
+
+if (env === 'production') {
+  config.devtool = undefined
+  config.output.path = './dist'
+  config.plugins = [].concat(config.plugins, [
+    new webpack.optimize.UglifyJsPlugin({
+      compressor: {
+        unsafe: true,
+        screw_ie8: true,
+        warnings: false
+      }
+    })
+  ])
+}
+
+module.exports = config

@@ -1,5 +1,7 @@
 @import 'variables';
 
+$item-tool-color: darken($white, 35%);
+$item-tool-color-inactive: darken($white, 12.5%);
 $item-height: 4.2rem;
 
 .item {
@@ -20,7 +22,8 @@ $item-height: 4.2rem;
   }
 
   &.alt-calculated {
-    background-color: darken($white, 2%);
+    background-color: darken($white, 1%);
+    opacity: 0.8;
   }
 
   &.alt-saldo {
@@ -43,15 +46,28 @@ $item-height: 4.2rem;
 .item--tools {
   margin-left: 1.5rem;
 
+  .item.alt-calculated & {
+    i {
+      color: $item-tool-color-inactive;
+
+      &:hover,
+      &:focus,
+      &:active {
+        color: $item-tool-color-inactive;
+        cursor: default;
+      }
+    }
+  }
+
   i {
-    color: darken($white, 25%);
+    color: $item-tool-color;
     height: $item-height;
     line-height: $item-height;
 
     &:hover,
     &:focus,
     &:active {
-      color: darken($white, 55%);
+      color: darken($item-tool-color, 20%);
       cursor: pointer;
     }
   }
