@@ -1,0 +1,10 @@
+.list {
+  float: left;
+  margin-bottom: 2rem;
+  width: 47.5%;
+  margin-right: 5%;
+
+  &:last-child {
+    margin-right: 0;
+  }
+}

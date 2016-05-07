@@ -1,26 +1,58 @@
 @import 'variables';
 
-$item-height: 4rem;
+$item-height: 4.2rem;
 
 .item {
-  background-color: darken($white, 2.5%);
-  border: 1px solid darken($white, 10%);
-  border-bottom: none;
+  background-color: $white;
+  box-shadow: 0 2px 5px darken($white, 10%);
+  display: flex;
   height: $item-height;
   line-height: $item-height;
+  margin-bottom: 2px;
   padding: 0 1.5rem;
 
-  &:last-child {
-    border-bottom: 1px solid darken($white, 10%);
+  &.alt-income .item--amount {
+    color: $green;
+  }
+
+  &.alt-expense .item--amount {
+    color: $red;
+  }
+
+  &.alt-calculated {
+    background-color: darken($white, 2%);
+  }
+
+  &.alt-saldo {
+    font-weight: bold;
+    margin-bottom: 5rem;
   }
 }
 
-.item--amount {
-  font-weight: bold;
-  float: right;
+.item--title {
+  width: 100%;
+}
 
+.item--amount {
   &:before {
     content: '€';
     margin-right: 0.3rem;
+  }
+}
+
+.item--tools {
+  margin-left: 1.5rem;
+
+  i {
+    color: darken($white, 25%);
+    height: $item-height;
+    line-height: $item-height;
+
+    &:hover,
+    &:focus,
+    &:active {
+      color: darken($white, 55%);
+      cursor: pointer;
+    }
   }
 }

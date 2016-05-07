@@ -1,3 +1,5 @@
+@import 'variables';
+
 html {
   font-size: 62.5%;
 }
@@ -9,6 +11,24 @@ html {
 }
 
 body {
+  background-color: darken($white, 5%);
+  color: lighten($black, 25%);
   font-family: 'Open sans', Helvetica, Arial, sans-serif;
   font-size: 1.6rem;
+  margin: 0;
+}
+
+.clearfix:after {
+  content: '';
+  display: table;
+  clear: both;
+}
+
+h1,
+h2 {
+  margin: 0 0 0.6em 0;
+}
+
+h2 {
+  font-size: 1.8rem;
 }

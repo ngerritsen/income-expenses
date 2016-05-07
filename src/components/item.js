@@ -1,30 +1,38 @@
 import React, { PropTypes } from 'react'
 
+import { toCurrency } from '../helpers/formatting'
+
 import '../styles/item.scss'
 
-const Item = ({ amount, title }) => (
-  <div className="item">
-    {title}
+const Item = ({ amount, calculated, title, id, itemType, remove, saldo }) => (
+  <div className={
+    'item' +
+    (itemType ? ` alt-${itemType}` : '') +
+    (calculated ? ' alt-calculated' : '') +
+    (saldo ? ' alt-saldo' : '')
+  }>
+    <span className="item--title">
+      {title}
+    </span>
     <span className="item--amount">
       {toCurrency(amount)}
+    </span>
+    <span className="item--tools">
+      {
+        !calculated &&
+        <i className="fa fa-times" onClick={e => remove(id)}></i>
+      }
     </span>
   </div>
 )
 
-function toCurrency (num) {
-  const isWholeNum = num % 1 === 0
-
-  if (isWholeNum) {
-    return num.toFixed(0) + ',-'
-  }
-
-  return num
-    .toFixed(2)
-    .replace('.', ',')
-}
-
 Item.propTypes = {
   amount: PropTypes.number.isRequired,
+  calculated: PropTypes.bool,
+  id: PropTypes.string,
+  itemType: PropTypes.string,
+  remove: PropTypes.func,
+  saldo: PropTypes.bool,
   title: PropTypes.string.isRequired
 }
 
