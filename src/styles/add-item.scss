@@ -9,44 +9,10 @@
   width: 100%;
 }
 
-.add-item--input-amount,
-.add-item--input-title {
-  background-color: transparent;
-  border-color: darken($white, 25%);
-  border-style: solid;
-  border-width: 0 0 2px 0;
-  font-size: 1.4rem;
-  margin-right: 6px;
-  min-width: 6rem;
-  transition: border 0.2s ease;
-
-  &:active,
-  &:focus {
-    border-color: $blue;
-    outline: none;
-  }
-}
-
 .add-item--input-amount {
   flex-grow: 1;
 }
 
 .add-item--input-title {
   flex-grow: 2;
-}
-
-.add-item--submit {
-  border: none;
-  background-color: transparent;
-  color: lighten($blue, 5%);
-  font-size: 1.4rem;
-  padding: 0 1rem;
-
-  &:hover,
-  &:focus,
-  &:active {
-    color: darken($blue, 15%);
-    cursor: pointer;
-    outline: none;
-  }
 }

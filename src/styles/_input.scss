@@ -1,0 +1,39 @@
+@import 'variables';
+
+.input {
+  background-color: transparent;
+  border-color: darken($white, 25%);
+  border-style: solid;
+  border-radius: 0;
+  border-width: 0 0 2px 0;
+  font-size: 1.4rem;
+  height: 4rem;
+  line-height: 4rem;
+  margin-right: 6px;
+  margin-bottom: 2rem;
+  min-width: 6rem;
+  transition: border 0.2s ease;
+  width: 100%;
+
+  &:active,
+  &:focus {
+    border-color: $blue;
+    outline: none;
+  }
+}
+
+.submit {
+  border: none;
+  background-color: transparent;
+  color: lighten($blue, 5%);
+  font-size: 1.4rem;
+  padding: 0 1rem;
+
+  &:hover,
+  &:focus,
+  &:active {
+    color: darken($blue, 15%);
+    cursor: pointer;
+    outline: none;
+  }
+}

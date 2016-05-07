@@ -8,13 +8,18 @@ import * as actions from '../actions'
 import Sheet from './sheet'
 import Header from './header'
 import Loader from './loader'
+import Login from './login'
 import { getCalculatedItems } from '../helpers/calculated-items'
 
-const App = ({ add, items, remove, initialized }) => (
+const App = ({ add, items, remove, initialized, login, loggedIn }) => (
   <div>
     <Header/>
     <div className="container">
       {(() => {
+        if (!loggedIn) {
+          return <Login login={login}/>
+        }
+
         if (!initialized) {
           return <Loader/>
         }
@@ -35,6 +40,8 @@ const App = ({ add, items, remove, initialized }) => (
 App.propTypes = {
   add: PropTypes.func.isRequired,
   items: PropTypes.array.isRequired,
+  login: PropTypes.func.isRequired,
+  loggedIn: PropTypes.bool.isRequired,
   initialized: PropTypes.bool.isRequired,
   remove: PropTypes.func.isRequired
 }

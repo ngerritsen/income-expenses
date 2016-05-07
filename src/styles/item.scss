@@ -37,6 +37,8 @@ $item-height: 4.2rem;
 }
 
 .item--amount {
+  margin-right: 0.2rem;
+
   &:before {
     content: '€';
     margin-right: 0.3rem;

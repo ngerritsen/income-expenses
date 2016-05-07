@@ -14,19 +14,19 @@ const AddItem = ({ add, itemType, responsible }) => {
       <input
         ref={c => titleInput = c}
         name="title"
-        className="add-item--input-title"
+        className="add-item--input-title input"
         placeholder="Naam"
         type="text"
       />
       <input
         ref={c => amountInput = c}
         name="amount"
-        className="add-item--input-amount"
+        className="add-item--input-amount input"
         placeholder="Bedrag"
         type="number"
         step="any"
       />
-      <button type="submit" className="add-item--submit">Toevoegen</button>
+      <button type="submit" className="submit">Toevoegen</button>
     </form>
   )
 }

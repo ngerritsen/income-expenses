@@ -1,8 +1,9 @@
-import { ADD, REMOVE, EDIT, GET } from './constants'
+import { ADD, REMOVE, EDIT, GET, LOGIN_SUCCESS } from './constants'
 
 const initialState = {
   items: [],
-  initialized: false
+  initialized: false,
+  loggedIn: false
 }
 
 export default function reducer (state = initialState, action) {
@@ -29,6 +30,11 @@ export default function reducer (state = initialState, action) {
         ...state,
         items: action.items,
         initialized: true
+      }
+    case LOGIN_SUCCESS:
+      return {
+        ...state,
+        loggedIn: true
       }
     default:
       return state
