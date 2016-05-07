@@ -1,6 +1,6 @@
 import shortid from 'shortid'
 
-import { ADD, REMOVE, EDIT } from './constants'
+import { ADD, REMOVE, EDIT, GET } from './constants'
 
 export function add (itemData) {
   const item = {
@@ -25,5 +25,12 @@ export function edit (item) {
   return {
     type: EDIT,
     item
+  }
+}
+
+export function get (items) {
+  return {
+    type: GET,
+    items
   }
 }
