@@ -11,7 +11,7 @@ import Loader from './loader'
 import Login from './login'
 import { getCalculatedItems } from '../helpers/calculated-items'
 
-const App = ({ add, items, remove, initialized, login, loggedIn }) => (
+const App = ({ add, items, remove, edit, initialized, login, loggedIn }) => (
   <div>
     <Header/>
     <div className="container">
@@ -26,9 +26,9 @@ const App = ({ add, items, remove, initialized, login, loggedIn }) => (
 
         return (
           <div>
-            <Sheet add={add} items={items} remove={remove} responsible={MAN} title="Niels"/>
-            <Sheet add={add} items={items} remove={remove} responsible={WOMAN} title="Peggy"/>
-            <Sheet add={add} items={items} remove={remove} responsible={SHARED} title="Gezamelijk"/>
+            <Sheet add={add} items={items} remove={remove} edit={edit} responsible={MAN} title="Niels"/>
+            <Sheet add={add} items={items} remove={remove} edit={edit} responsible={WOMAN} title="Peggy"/>
+            <Sheet add={add} items={items} remove={remove} edit={edit} responsible={SHARED} title="Gezamelijk"/>
           </div>
         )
       })()}
@@ -39,10 +39,11 @@ const App = ({ add, items, remove, initialized, login, loggedIn }) => (
 
 App.propTypes = {
   add: PropTypes.func.isRequired,
-  items: PropTypes.array.isRequired,
-  login: PropTypes.func.isRequired,
-  loggedIn: PropTypes.bool.isRequired,
+  edit: PropTypes.func.isRequired,
   initialized: PropTypes.bool.isRequired,
+  items: PropTypes.array.isRequired,
+  loggedIn: PropTypes.bool.isRequired,
+  login: PropTypes.func.isRequired,
   remove: PropTypes.func.isRequired
 }
 

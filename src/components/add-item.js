@@ -3,8 +3,8 @@ import React, { PropTypes } from 'react'
 import '../styles/add-item.scss'
 
 const AddItem = ({ add, itemType, responsible }) => {
-  let amountInput;
-  let titleInput;
+  let amountInput
+  let titleInput
 
   return (
     <form className="add-item" onSubmit={e => {
@@ -12,14 +12,18 @@ const AddItem = ({ add, itemType, responsible }) => {
       addItem(add, amountInput, titleInput, itemType, responsible)
     }}>
       <input
-        ref={c => titleInput = c}
+        ref={c => {
+          titleInput = c
+        }}
         name="title"
         className="add-item--input-title input"
         placeholder="Naam"
         type="text"
       />
       <input
-        ref={c => amountInput = c}
+        ref={c => {
+          amountInput = c
+        }}
         name="amount"
         className="add-item--input-amount input"
         placeholder="Bedrag"

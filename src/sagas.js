@@ -1,7 +1,9 @@
+/* eslint-disable no-constant-condition */
+
 import { take, put, call } from 'redux-saga/effects'
 
 import firebaseRef from './firebase'
-import { ADD, REMOVE, LOGIN } from './constants'
+import { ADD, REMOVE, UPDATE, LOGIN } from './constants'
 import { get, loginSuccess } from './actions'
 import { objectToArray } from './helpers/utility'
 
@@ -10,6 +12,7 @@ export default function* rootSaga () {
     initializeSaga(),
     addSaga(),
     removeSaga(),
+    editSaga(),
     loginSaga()
   ]
 }
@@ -51,6 +54,14 @@ function* removeSaga () {
   }
 }
 
+function* editSaga () {
+  while (true) {
+    const { id, item } = yield take(UPDATE)
+
+    firebaseRef.child('items').child(id).update(item)
+  }
+}
+
 function* getSaga () {
   const data = yield call(getItems)
   const itemsObj = data.val()
@@ -74,9 +85,12 @@ function login (email, password) {
 }
 
 function getItems () {
-  return new Promise ((resolve, reject) => {
+  return new Promise((resolve, reject) => {
     firebaseRef.child('items').once('value')
       .then(data => resolve(data))
-      .catch(error => console.log(error))
+      .catch(error => {
+        reject(error)
+        console.error(error) // eslint-disable-line no-console
+      })
   })
 }
