@@ -45,6 +45,7 @@ function *addSaga() {
 
 function *addItem({ item }) {
   yield call(() => firebaseRef.child('items').child(item.id).set(item))
+  yield* getSaga()
 }
 
 function *removeSaga() {
@@ -53,6 +54,7 @@ function *removeSaga() {
 
 function *removeItem({ id }) {
   yield call(() => firebaseRef.child('items').child(id).remove())
+  yield* getSaga()
 }
 
 function *editSaga() {

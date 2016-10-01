@@ -23,24 +23,24 @@ $item-height: 4.2rem;
 .item__input,
 .item__content {
   padding: 0 1.5rem;
-}
-
-.item__input {
-  margin-top: -1rem;
+  height: $item-height;
+  line-height: $item-height;
+  overflow: hidden;
 }
 
 .item__content {
   display: flex;
-  height: $item-height;
-  line-height: $item-height;
 }
 
 .item__title {
   width: 100%;
+}
 
+.item__amount,
+.item__title {
   &:hover {
     cursor: pointer;
-    opacity: 0.9;
+    opacity: 0.8;
   }
 }
 

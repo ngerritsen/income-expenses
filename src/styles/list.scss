@@ -13,5 +13,9 @@
     &:last-child {
       margin-right: 0;
     }
+
+    > *:nth-last-child(2) {
+      margin-bottom: 2rem;
+    }
   }
 }

@@ -9,36 +9,44 @@ const Item = ({
   amount, edit, editMode, calculated, title, id, itemType, remove, responsible, saldo, toggleEditMode
 }) =>
   <div className={getItemClassName(itemType, calculated, saldo)}>
-    <div className="item__content">
-      <span className="item__title" onClick={
-        calculated ? null : () => toggleEditMode(id)
-      }>
-        {title}
-      </span>
-      <span className="item__amount">
-        {toCurrency(amount)}
-      </span>
-      <span className="item__tools">
-        <i
-          className="item__icon fa fa-times"
-          onClick={calculated ? null : () => remove(id)}
-        />
-      </span>
-    </div>
-    {
-      !calculated && editMode &&
-      <div className="item__input">
-        <ItemInput
-          title={title}
-          amount={amount}
-          action={edit}
-          itemType={itemType}
-          responsible={responsible}
-          actionText="Sla op"
-          id={id}
-        />
-      </div>
-    }
+    {(() => {
+      if (!editMode) {
+        return (
+          <div className="item__content">
+            <span className="item__title" onClick={
+              calculated ? null : () => toggleEditMode(id)
+            }>
+              {title}
+            </span>
+            <span className="item__amount" onClick={
+              calculated ? null : () => toggleEditMode(id)
+            }>
+              {toCurrency(amount)}
+            </span>
+            <span className="item__tools">
+              <i
+                className="item__icon fa fa-times"
+                onClick={calculated ? null : () => remove(id)}
+              />
+            </span>
+          </div>
+        )
+      }
+
+      return (
+        <div className="item__input">
+          <ItemInput
+            title={title}
+            amount={amount}
+            action={edit}
+            itemType={itemType}
+            responsible={responsible}
+            actionText="Sla op"
+            id={id}
+          />
+        </div>
+      )
+    })()}
   </div>
 
 function getItemClassName(itemType, calculated, saldo) {

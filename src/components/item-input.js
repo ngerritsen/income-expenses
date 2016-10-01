@@ -31,7 +31,7 @@ const ItemInput = ({ action, id, itemType, responsible, actionText, title, amoun
         step="any"
         defaultValue={amount}
       />
-      <button type="submit" className="submit" >{actionText}</button>
+      <button type="submit" className="submit item-input__submit" >{actionText}</button>
     </form>
   )
 }

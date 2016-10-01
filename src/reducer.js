@@ -26,7 +26,7 @@ function addItem(state, action) {
 function removeItem(state, action) {
   return {
     ...state,
-    items: [...state.items, action.item]
+    items: state.items.filter(item => item.id !== action.id)
   }
 }
 
