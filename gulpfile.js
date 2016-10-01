@@ -6,7 +6,7 @@ const util = require('gulp-util')
 const args = minimist(process.argv.slice(2))
 
 gulp.task('deploy', () => {
-  const remotePath = '/public_html/nielsgerritsen/in-uit'
+  const remotePath = '/public_html/in-uit'
   const conn = ftp.create({
     host: 'carehr.nl',
     user: args.user,
