@@ -1,13 +1,14 @@
 /* eslint-disable no-constant-condition */
 
-import { take, put, call } from 'redux-saga/effects'
+import { takeEvery } from 'redux-saga'
+import { put, call } from 'redux-saga/effects'
 
 import firebaseRef from './firebase'
-import { ADD, REMOVE, UPDATE, LOGIN } from './constants'
-import { get, loginSuccess } from './actions'
+import { ADD, REMOVE, EDIT, LOGIN } from './constants'
+import { get, loginSuccess, toggleEditMode } from './actions'
 import { objectToArray } from './helpers/utility'
 
-export default function* rootSaga () {
+export default function *rootSaga() {
   yield [
     initializeSaga(),
     addSaga(),
@@ -17,7 +18,7 @@ export default function* rootSaga () {
   ]
 }
 
-function* initializeSaga () {
+function *initializeSaga() {
   const loginExpires = localStorage.getItem('loginExpires')
   const currentDate = new Date()
   const currentTime = currentDate.getTime()
@@ -28,41 +29,43 @@ function* initializeSaga () {
   }
 }
 
-function* loginSaga () {
-  while (true) {
-    const { email, password } = yield take(LOGIN)
-
-    yield call(login, email, password)
-    yield put(loginSuccess())
-    yield call(getSaga)
-  }
+function *loginSaga() {
+  yield* takeEvery(LOGIN, login)
 }
 
-function* addSaga () {
-  while (true) {
-    const { item } = yield take(ADD)
-
-    firebaseRef.child('items').child(item.id).set(item)
-  }
+function *login({ email, password }) {
+  yield call(doLogin, email, password)
+  yield put(loginSuccess())
+  yield call(getSaga)
 }
 
-function* removeSaga () {
-  while (true) {
-    const { id } = yield take(REMOVE)
-
-    firebaseRef.child('items').child(id).remove()
-  }
+function *addSaga() {
+  yield* takeEvery(ADD, addItem)
 }
 
-function* editSaga () {
-  while (true) {
-    const { id, item } = yield take(UPDATE)
-
-    firebaseRef.child('items').child(id).update(item)
-  }
+function *addItem({ item }) {
+  yield call(() => firebaseRef.child('items').child(item.id).set(item))
 }
 
-function* getSaga () {
+function *removeSaga() {
+  yield* takeEvery(REMOVE, removeItem)
+}
+
+function *removeItem({ id }) {
+  yield call(() => firebaseRef.child('items').child(id).remove())
+}
+
+function *editSaga() {
+  yield* takeEvery(EDIT, editItem)
+}
+
+function *editItem({ id, item }) {
+  firebaseRef.child('items').child(id).update(item)
+  yield put(toggleEditMode(id))
+  yield* getSaga()
+}
+
+function *getSaga() {
   const data = yield call(getItems)
   const itemsObj = data.val()
   const items = itemsObj ? objectToArray(itemsObj) : []
@@ -70,7 +73,7 @@ function* getSaga () {
   yield put(get(items))
 }
 
-function login (email, password) {
+function doLogin(email, password) {
   return new Promise((resolve, reject) => {
     firebaseRef.authWithPassword({ email, password }, (error, data) => {
       if (error) {
@@ -84,7 +87,7 @@ function login (email, password) {
   })
 }
 
-function getItems () {
+function getItems() {
   return new Promise((resolve, reject) => {
     firebaseRef.child('items').once('value')
       .then(data => resolve(data))

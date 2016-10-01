@@ -1,4 +1,5 @@
-import { ADD, REMOVE, EDIT, GET, LOGIN_SUCCESS } from './constants'
+import { mapReducers } from 'redux-map-reducers'
+import { ADD, REMOVE, EDIT, GET, LOGIN_SUCCESS, TOGGLE_EDIT_MODE } from './constants'
 
 const initialState = {
   items: [],
@@ -6,37 +7,60 @@ const initialState = {
   loggedIn: false
 }
 
-export default function reducer (state = initialState, action) {
-  switch (action.type) {
-    case ADD:
-      return {
-        ...state,
-        items: [ ...state.items, action.item ]
-      }
-    case REMOVE:
-      return {
-        ...state,
-        items: state.items.filter(({ id }) => id !== action.id)
-      }
-    case EDIT:
-      return {
-        ...state,
-        items: state.items.map(item => {
-          return item.id === action.item.id ? { item, ...action.item } : item
-        })
-      }
-    case GET:
-      return {
-        ...state,
-        items: action.items,
-        initialized: true
-      }
-    case LOGIN_SUCCESS:
-      return {
-        ...state,
-        loggedIn: true
-      }
-    default:
-      return state
+const reducerMap = {
+  [ADD]: addItem,
+  [REMOVE]: removeItem,
+  [EDIT]: editItem,
+  [GET]: getItem,
+  [TOGGLE_EDIT_MODE]: toggleEditMode,
+  [LOGIN_SUCCESS]: loginSuccess
+}
+
+function addItem(state, action) {
+  return {
+    ...state,
+    items: [...state.items, action.item]
   }
 }
+
+function removeItem(state, action) {
+  return {
+    ...state,
+    items: [...state.items, action.item]
+  }
+}
+
+function editItem(state, action) {
+  return {
+    ...state,
+    items: state.items.map(item => {
+      return item.id === action.item.id ? { ...item, ...action.item } : item
+    })
+  }
+}
+
+function getItem(state, action) {
+  return {
+    ...state,
+    items: action.items,
+    initialized: true
+  }
+}
+
+function toggleEditMode(state, action) {
+  return {
+    ...state,
+    items: state.items.map(item => {
+      return item.id === action.id ? { ...item, editMode: !item.editMode } : item
+    })
+  }
+}
+
+function loginSuccess(state) {
+  return {
+    ...state,
+    loggedIn: true
+  }
+}
+
+export default mapReducers(reducerMap, initialState)

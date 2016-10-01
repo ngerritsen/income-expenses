@@ -1,6 +1,6 @@
 @import 'variables';
 
-.add-item {
+.item-input {
   border: none;
   align-content: stretch;
   display: flex;
@@ -8,10 +8,10 @@
   width: 100%;
 }
 
-.add-item--input-amount {
+.item-input__input-amount {
   flex-grow: 1;
 }
 
-.add-item--input-title {
+.item-input__input-title {
   flex-grow: 2;
 }

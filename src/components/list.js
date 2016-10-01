@@ -1,18 +1,16 @@
 import React, { PropTypes } from 'react'
 
 import Item from './item'
-import AddItem from './add-item'
-
-import { EXPENSE, INCOME, SHARED, MAN, WOMAN } from '../constants'
+import ItemInput from './item-input'
 
 import '../styles/list.scss'
 
-const List = ({ add, items, itemType, responsible, remove }) => (
+const List = ({ add, edit, items, itemType, responsible, remove, toggleEditMode }) =>
   <div className="list">
     {items
       .filter(item => itemType === item.itemType && responsible === item.responsible)
       .filter(({ amount }) => amount > 0)
-      .map(({ amount, id, itemType: type, responsible: res, title, calculated }, index) =>
+      .map(({ amount, id, itemType: type, responsible: res, title, calculated, editMode }, index) =>
         <Item
           key={id || index}
           amount={amount}
@@ -20,20 +18,25 @@ const List = ({ add, items, itemType, responsible, remove }) => (
           id={id}
           itemType={type}
           remove={remove}
+          responsible={responsible}
           calculated={calculated}
+          edit={edit}
+          editMode={editMode}
+          toggleEditMode={toggleEditMode}
         />
       )
     }
-    <AddItem add={add} itemType={itemType} responsible={responsible}/>
+    <ItemInput action={add} itemType={itemType} responsible={responsible} actionText="Toevoegen"/>
   </div>
-)
 
 List.propTypes = {
   add: PropTypes.func.isRequired,
+  edit: PropTypes.func.isRequired,
   itemType: PropTypes.string.isRequired,
   items: PropTypes.array.isRequired,
   remove: PropTypes.func.isRequired,
-  responsible: PropTypes.string.isRequired
+  responsible: PropTypes.string.isRequired,
+  toggleEditMode: PropTypes.func.isRequired
 }
 
 export default List

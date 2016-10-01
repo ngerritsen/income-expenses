@@ -1,8 +1,8 @@
 import shortid from 'shortid'
 
-import { ADD, REMOVE, EDIT, GET, LOGIN, LOGIN_SUCCESS } from './constants'
+import { ADD, REMOVE, EDIT, GET, LOGIN, LOGIN_SUCCESS, TOGGLE_EDIT_MODE } from './constants'
 
-export function login (email, password) {
+export function login(email, password) {
   return {
     type: LOGIN,
     email,
@@ -10,13 +10,13 @@ export function login (email, password) {
   }
 }
 
-export function loginSuccess () {
+export function loginSuccess() {
   return {
     type: LOGIN_SUCCESS
   }
 }
 
-export function add (itemData) {
+export function add(itemData) {
   const item = {
     ...itemData,
     id: shortid.generate()
@@ -28,21 +28,29 @@ export function add (itemData) {
   }
 }
 
-export function remove (id) {
+export function remove(id) {
   return {
     type: REMOVE,
     id
   }
 }
 
-export function edit (item) {
+export function edit(id, item) {
   return {
     type: EDIT,
-    item
+    item,
+    id
   }
 }
 
-export function get (items) {
+export function toggleEditMode(id) {
+  return {
+    type: TOGGLE_EDIT_MODE,
+    id
+  }
+}
+
+export function get(items) {
   return {
     type: GET,
     items

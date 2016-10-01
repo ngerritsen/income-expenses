@@ -1,22 +1,22 @@
 import React, { PropTypes } from 'react'
 
 import List from './list'
-import Item from './item'
 import Saldo from './saldo'
 
 import '../styles/sheet.scss'
 
-import { SHARED, INCOME, EXPENSE } from '../constants'
+import { INCOME, EXPENSE } from '../constants'
 
-const Sheet = ({ add, items, remove, responsible, title }) => {
+const Sheet = ({ add, edit, items, remove, responsible, title, toggleEditMode }) => {
   const scopedItems = items.filter(item => item.responsible === responsible)
+  const listProps = { add, edit, items: scopedItems, remove, responsible, toggleEditMode }
 
   return (
     <div className="sheet">
       <h2>{title}</h2>
       <div className="clearfix">
-        <List add={add} items={scopedItems} itemType={INCOME} responsible={responsible} remove={remove}/>
-        <List add={add} items={scopedItems} itemType={EXPENSE} responsible={responsible} remove={remove}/>
+        <List {...listProps} itemType={INCOME}/>
+        <List {...listProps} itemType={EXPENSE}/>
       </div>
       <Saldo items={items} responsible={responsible}/>
     </div>
@@ -25,10 +25,12 @@ const Sheet = ({ add, items, remove, responsible, title }) => {
 
 Sheet.propTypes = {
   add: PropTypes.func.isRequired,
+  edit: PropTypes.func.isRequired,
   items: PropTypes.array.isRequired,
   remove: PropTypes.func.isRequired,
   responsible: PropTypes.string.isRequired,
-  title: PropTypes.string.isRequired
+  title: PropTypes.string.isRequired,
+  toggleEditMode: PropTypes.func.isRequired
 }
 
 export default Sheet

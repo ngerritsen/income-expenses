@@ -7,70 +7,84 @@ $item-height: 4.2rem;
 .item {
   background-color: $white;
   box-shadow: 0 2px 5px darken($white, 10%);
+  margin-bottom: 2px;
+}
+
+.item--calculated {
+  background-color: darken($white, 1%);
+  opacity: 0.8;
+}
+
+.item--saldo {
+  font-weight: bold;
+  margin-bottom: 5rem;
+}
+
+.item__input,
+.item__content {
+  padding: 0 1.5rem;
+}
+
+.item__input {
+  margin-top: -1rem;
+}
+
+.item__content {
   display: flex;
   height: $item-height;
   line-height: $item-height;
-  margin-bottom: 2px;
-  padding: 0 1.5rem;
+}
 
-  &.alt-income .item--amount {
+.item__title {
+  width: 100%;
+
+  &:hover {
+    cursor: pointer;
+    opacity: 0.9;
+  }
+}
+
+.item__amount {
+  margin-right: 0.2rem;
+
+  .item--income & {
     color: $green;
   }
 
-  &.alt-expense .item--amount {
+  .item--expense & {
     color: $red;
   }
 
-  &.alt-calculated {
-    background-color: darken($white, 1%);
-    opacity: 0.8;
-  }
-
-  &.alt-saldo {
-    font-weight: bold;
-    margin-bottom: 5rem;
-  }
-}
-
-.item--title {
-  width: 100%;
-}
-
-.item--amount {
-  margin-right: 0.2rem;
-
-  &:before {
+  &::before {
     content: '€';
     margin-right: 0.3rem;
   }
 }
 
-.item--tools {
+.item__tools {
   margin-left: 1.5rem;
+}
 
-  .item.alt-calculated & {
-    i {
-      color: $item-tool-color-inactive;
+.item__icon {
+  color: $item-tool-color;
+  height: $item-height;
+  line-height: $item-height !important;
 
-      &:hover,
-      &:focus,
-      &:active {
-        color: $item-tool-color-inactive;
-        cursor: default;
-      }
-    }
-  }
-
-  i {
-    color: $item-tool-color;
-    height: $item-height;
-    line-height: $item-height;
+  .item--calculated & {
+    color: $item-tool-color-inactive;
 
     &:hover,
     &:focus,
     &:active {
-      color: darken($item-tool-color, 20%);
-      cursor: pointer;
+      color: $item-tool-color-inactive;
+      cursor: default;
     }
+  }
+
+  &:hover,
+  &:focus,
+  &:active {
+    color: darken($item-tool-color, 20%);
+    cursor: pointer;
   }
 }

@@ -14,4 +14,6 @@ export const INCOME = 'income'
 export const EXPENSE = 'expense'
 export const SALDO = 'saldo'
 
+export const TOGGLE_EDIT_MODE = 'TOGGLE_EDIT_MODE'
+
 export const FIREBASE_URL = 'https://income-expense.firebaseio.com'
