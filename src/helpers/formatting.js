@@ -1,4 +1,4 @@
-export function toCurrency (num) {
+export function toCurrency(num) {
   const isWholeNum = num % 1 === 0
 
   if (isWholeNum) {

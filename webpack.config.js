@@ -1,7 +1,7 @@
-var webpack = require('webpack')
+const webpack = require('webpack')
 
-var env = process.env.NODE_ENV
-var config = {
+const env = process.env.NODE_ENV
+const config = {
   devtool: 'cheap-module-eval-source-map',
   entry: './src/main.js',
   output: {
@@ -37,7 +37,6 @@ if (env === 'production') {
     new webpack.optimize.UglifyJsPlugin({
       compressor: {
         unsafe: true,
-        screw_ie8: true,
         warnings: false
       }
     })

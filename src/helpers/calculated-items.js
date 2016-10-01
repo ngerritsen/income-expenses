@@ -1,6 +1,6 @@
 import { EXPENSE, INCOME, SALDO, MAN, SHARED, WOMAN } from '../constants'
 
-export function getCalculatedItems (items) {
+export function getCalculatedItems(items) {
   const { saldoMan, saldoWoman, saldoShared } = calculateSaldos(items)
   const sharedInvestments = calculateSharedInvestments(saldoMan, saldoWoman, saldoShared)
   const { investmentMan, investmentWoman } = sharedInvestments
@@ -10,7 +10,7 @@ export function getCalculatedItems (items) {
   return createCalculatedItems(investmentMan, investmentWoman, finalSaldoMan, finalSaldoWoman, finalSaldoShared)
 }
 
-function calculateSaldos (items) {
+function calculateSaldos(items) {
   return {
     saldoMan: calculateSaldo(items, MAN),
     saldoWoman: calculateSaldo(items, WOMAN),
@@ -18,7 +18,7 @@ function calculateSaldos (items) {
   }
 }
 
-function calculateSaldo (items, responsible) {
+function calculateSaldo(items, responsible) {
   return items
     .filter(item => item.responsible === responsible)
     .reduce((saldo, { amount, itemType }) => {
@@ -30,7 +30,7 @@ function calculateSaldo (items, responsible) {
     }, 0)
 }
 
-function calculateSharedInvestments (saldoMan, saldoWoman, saldoShared) {
+function calculateSharedInvestments(saldoMan, saldoWoman, saldoShared) {
   const totalSaldo = saldoMan + saldoWoman
   const sharedInvestmentNeeded = saldoShared <= 0 ? saldoShared * -1 : 0
 
@@ -40,12 +40,12 @@ function calculateSharedInvestments (saldoMan, saldoWoman, saldoShared) {
   }
 }
 
-function calculateSharedInvestment (saldo, totalSaldo, sharedInvestmentNeeded) {
+function calculateSharedInvestment(saldo, totalSaldo, sharedInvestmentNeeded) {
   if (saldo <= 0) {
     return 0
   }
 
-  const investment = (saldo / totalSaldo) * sharedInvestmentNeeded
+  const investment = saldo / totalSaldo * sharedInvestmentNeeded
 
   if (investment > saldo) {
     return saldo
@@ -54,7 +54,7 @@ function calculateSharedInvestment (saldo, totalSaldo, sharedInvestmentNeeded) {
   return investment
 }
 
-function calculateFinalSaldos (investmentMan, investmentWoman, saldoMan, saldoWoman, saldoShared) {
+function calculateFinalSaldos(investmentMan, investmentWoman, saldoMan, saldoWoman, saldoShared) {
   return {
     finalSaldoMan: saldoMan - investmentMan,
     finalSaldoWoman: saldoWoman - investmentWoman,
@@ -62,7 +62,7 @@ function calculateFinalSaldos (investmentMan, investmentWoman, saldoMan, saldoWo
   }
 }
 
-function createCalculatedItems (investmentMan, investmentWoman, finalSaldoMan, finalSaldoWoman, finalSaldoShared) {
+function createCalculatedItems(investmentMan, investmentWoman, finalSaldoMan, finalSaldoWoman, finalSaldoShared) {
   return [
     calculatedItem(investmentMan, EXPENSE, MAN, 'Inleg gezamelijk'),
     calculatedItem(investmentWoman, EXPENSE, WOMAN, 'Inleg gezamelijk'),
@@ -74,7 +74,7 @@ function createCalculatedItems (investmentMan, investmentWoman, finalSaldoMan, f
   ]
 }
 
-function calculatedItem (amount, itemType, responsible, title) {
+function calculatedItem(amount, itemType, responsible, title) {
   return {
     amount,
     calculated: true,

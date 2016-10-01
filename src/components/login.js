@@ -3,22 +3,25 @@ import React, { PropTypes } from 'react'
 import '../styles/login.scss'
 
 const Login = ({ login }) => {
-  let emailInput
-  let passwordInput
+  let emailInput, passwordInput
 
   return (
     <form className="login" onSubmit={e => {
-        e.preventDefault()
-        loginUser(login, emailInput, passwordInput)
+      e.preventDefault()
+      loginUser(login, emailInput, passwordInput)
     }}>
-      <input type="text" className="input" placeholder="Email" ref={c => emailInput = c}/>
-      <input type="password" className="input" placeholder="Wachtwoord" ref={c => passwordInput = c}/>
-      <button type="submit" className="submit login--submit">Inloggen</button>
+      <input type="text" className="input" placeholder="Email" ref={c => {
+        emailInput = c
+      }}/>
+      <input type="password" className="input" placeholder="Wachtwoord" ref={c => {
+        passwordInput = c
+      }}/>
+      <button type="submit" className="submit login__submit">Inloggen</button>
     </form>
   )
 }
 
-function loginUser (login, emailInput, passwordInput) {
+function loginUser(login, emailInput, passwordInput) {
   const email = emailInput.value
   const password = passwordInput.value
 
