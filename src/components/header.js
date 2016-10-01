@@ -4,7 +4,7 @@ import '../styles/header.scss'
 
 const Header = () =>
   <div className="header">
-    <h1 className="header--title">Inkomen & Uitgaven</h1>
+    <h1 className="header__title">In & uit</h1>
   </div>
 
 export default Header

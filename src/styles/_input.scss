@@ -6,7 +6,7 @@
   border-style: solid;
   border-radius: 0;
   border-width: 0 0 2px 0;
-  font-size: 1.4rem;
+  font-size: 1.5rem;
   height: 3.2rem;
   line-height: 3.2rem;
   margin-right: 6px;
@@ -27,7 +27,7 @@
   border: none;
   background-color: transparent;
   color: lighten($blue, 5%);
-  font-size: 1.4rem;
+  font-size: 1.5rem;
   line-height: 3rem;
   padding: 0 1rem;
 
@@ -35,6 +35,7 @@
   &:focus,
   &:active {
     color: darken($blue, 15%);
+    background-color: transparent;
     cursor: pointer;
     outline: none;
   }
