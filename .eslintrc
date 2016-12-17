@@ -31,7 +31,6 @@
      * React & JSX
      */
     "react/jsx-pascal-case": 2,
-    "react/jsx-closing-bracket-location": 2,
     "react/jsx-indent-props": [2, 2],
     "react/no-multi-comp": 2,
     "react/prefer-es6-class": 2,
