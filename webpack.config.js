@@ -1,29 +1,29 @@
 const webpack = require('webpack')
+const path = require('path');
 
 const env = process.env.NODE_ENV
 const config = {
-  devtool: 'cheap-module-eval-source-map',
+  devtool: 'inline-source-map',
   entry: './src/main.js',
   output: {
-    path: '.',
+    path: path.resolve('.'),
     publicPath: '/',
     filename: 'bundle.js'
   },
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        loader: 'babel'
+        use: 'babel-loader'
       },
       {
         test: /\.scss$/,
-        loaders: ['style', 'css', 'sass']
+        use: ['style-loader', 'css-loader', 'sass-loader']
       }
     ]
   },
   plugins: [
-    new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify(env)
     })
@@ -32,14 +32,9 @@ const config = {
 
 if (env === 'production') {
   config.devtool = undefined
-  config.output.path = './dist'
+  config.output.path = path.resolve('./dist')
   config.plugins = [].concat(config.plugins, [
-    new webpack.optimize.UglifyJsPlugin({
-      compressor: {
-        unsafe: true,
-        warnings: false
-      }
-    })
+    new webpack.optimize.UglifyJsPlugin()
   ])
 }
 

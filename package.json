@@ -9,43 +9,61 @@
     "test": "eslint ."
   },
   "engines": {
-    "node": ">7"
+    "node": ">8"
   },
   "author": "Niels Gerritsen",
   "license": "ISC",
   "dependencies": {
     "firebase": "^2.4.2",
+    "prop-types": "^15.5.10",
     "react": "^15.0.2",
     "react-dom": "^15.0.2",
     "react-redux": "^5.0.1",
     "redux": "^3.5.2",
-    "redux-logger": "^2.6.1",
     "redux-map-reducers": "^1.0.1",
     "redux-saga": "^0.13.0",
     "shortid": "^2.2.6"
   },
   "devDependencies": {
     "babel-core": "^6.16.0",
-    "babel-loader": "^6.2.4",
+    "babel-loader": "^7.1.2",
     "babel-plugin-transform-object-rest-spread": "^6.8.0",
     "babel-polyfill": "^6.20.0",
-    "babel-preset-env": "^1.1.4",
+    "babel-preset-env": "^1.6.0",
     "babel-preset-react": "^6.16.0",
-    "css-loader": "^0.26.1",
-    "eslint": "^3.7.0",
+    "css-loader": "^0.28.7",
+    "eslint": "^4.7.1",
     "eslint-config-ngerritsen": "^1.0.2",
     "eslint-config-ngerritsen-react": "^0.1.0",
     "eslint-plugin-filenames": "^1.1.0",
     "eslint-plugin-import": "^2.2.0",
-    "eslint-plugin-react": "^6.3.0",
+    "eslint-plugin-react": "^7.3.0",
     "gulp": "^3.9.1",
     "gulp-util": "^3.0.7",
-    "minimist": "^1.2.0",
     "node-sass": "^4.1.1",
-    "sass-loader": "^4.1.1",
-    "style-loader": "^0.13.1",
-    "vinyl-ftp": "^0.5.0",
-    "webpack": "^1.13.0",
-    "webpack-dev-server": "^1.14.1"
+    "redux-logger": "^3.0.6",
+    "sass-loader": "^6.0.6",
+    "style-loader": "^0.18.2",
+    "webpack": "^3.6.0",
+    "webpack-dev-server": "^2.8.2"
+  },
+  "babel": {
+    "presets": [
+      [
+        "env",
+        {
+          "targets": {
+            "browsers": [
+              "last 2 versions",
+              "> 5%"
+            ]
+          }
+        }
+      ],
+      "react"
+    ],
+    "plugins": [
+      "transform-object-rest-spread"
+    ]
   }
 }

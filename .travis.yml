@@ -1,8 +1,8 @@
 language: node_js
 node_js:
-  - "7"
+  - "8"
 cache: yarn
 script:
   - npm test
   - npm run build
-after_success: node_modules/gulp/bin/gulp.js deploy --user $FTP_USER --password $FTP_PASSWORD
+after_success: find dist -type f -exec curl -3 --ftp-create-dirs -T {} ftp://$FTP_USER:$FTP_PASSWORD@ftp.carehr.nl/public_html/in-uit/ \;
