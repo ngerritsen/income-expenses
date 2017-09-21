@@ -11,7 +11,7 @@ const List = ({ add, edit, items, itemType, responsible, remove, toggleEditMode 
     {items
       .filter(item => itemType === item.itemType && responsible === item.responsible)
       .filter(({ amount }) => amount > 0)
-      .map(({ amount, id, itemType: type, responsible: res, title, calculated, editMode }, index) =>
+      .map(({ amount, id, itemType: type, title, calculated, editMode }, index) =>
         <Item
           key={id || index}
           amount={amount}

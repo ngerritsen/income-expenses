@@ -33,7 +33,7 @@
     "babel-preset-react": "^6.16.0",
     "css-loader": "^0.28.7",
     "eslint": "^4.7.1",
-    "eslint-config-ngerritsen": "^1.0.2",
+    "eslint-config-ngerritsen": "^1.1.1",
     "eslint-config-ngerritsen-react": "^0.1.0",
     "eslint-plugin-filenames": "^1.1.0",
     "eslint-plugin-import": "^2.2.0",

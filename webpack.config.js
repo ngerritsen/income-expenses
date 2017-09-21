@@ -1,5 +1,5 @@
 const webpack = require('webpack')
-const path = require('path');
+const path = require('path')
 
 const env = process.env.NODE_ENV
 const config = {

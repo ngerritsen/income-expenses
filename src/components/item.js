@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import { toCurrency } from '../helpers/formatting'
-import ItemInput from './item-input.js'
+import ItemInput from './item-input'
 
 import '../styles/item.scss'
 
