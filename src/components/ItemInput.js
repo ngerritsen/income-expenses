@@ -1,19 +1,17 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-
-import '../styles/item-input.scss'
+import React from 'react';
+import PropTypes from 'prop-types';
 
 const ItemInput = ({ action, id, itemType, responsible, actionText, title, amount }) => {
-  let amountInput, titleInput
+  let amountInput, titleInput;
 
   return (
     <form className="item-input" onSubmit={e => {
-      e.preventDefault()
-      submitItem(action, amountInput, titleInput, itemType, responsible, id)
+      e.preventDefault();
+      submitItem(action, amountInput, titleInput, itemType, responsible, id);
     }}>
       <input
         ref={c => {
-          titleInput = c
+          titleInput = c;
         }}
         name="title"
         className="item-input__input-title input"
@@ -23,7 +21,7 @@ const ItemInput = ({ action, id, itemType, responsible, actionText, title, amoun
       />
       <input
         ref={c => {
-          amountInput = c
+          amountInput = c;
         }}
         name="amount"
         className="item-input__input-amount input"
@@ -34,42 +32,42 @@ const ItemInput = ({ action, id, itemType, responsible, actionText, title, amoun
       />
       <button type="submit" className="submit item-input__submit" >{actionText}</button>
     </form>
-  )
-}
+  );
+};
 
 function submitItem(action, amountInput, titleInput, itemType, responsible, id) {
-  const amount = amountInput.value
-  const title = titleInput.value
+  const amount = amountInput.value;
+  const title = titleInput.value;
   const item = {
     amount: Number(amount),
     title,
     itemType,
     responsible
-  }
+  };
 
   if (isValidInput(amount, title)) {
-    fireAction(action, id, item)
-    resetIntputs(amountInput, titleInput)
+    fireAction(action, id, item);
+    resetIntputs(amountInput, titleInput);
   }
 }
 
 function fireAction(action, id, item) {
   if (id) {
-    action(id, item)
-    return
+    action(id, item);
+    return;
   }
 
-  action(item)
+  action(item);
 }
 
 function isValidInput(amount, title) {
-  return amount.trim() !== '' && title.trim() !== ''
+  return amount.trim() !== '' && title.trim() !== '';
 }
 
 function resetIntputs(amountInput, titleInput) {
-  amountInput.value = ''
-  titleInput.value = ''
-  titleInput.focus()
+  amountInput.value = '';
+  titleInput.value = '';
+  titleInput.focus();
 }
 
 ItemInput.propTypes = {
@@ -80,6 +78,6 @@ ItemInput.propTypes = {
   itemType: PropTypes.string.isRequired,
   responsible: PropTypes.string.isRequired,
   title: PropTypes.string
-}
+};
 
-export default ItemInput
+export default ItemInput;

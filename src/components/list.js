@@ -1,43 +1,90 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
-import Item from './item'
-import ItemInput from './item-input'
+import { SALDO, EXPENSE } from '../constants';
+import { openAddModal } from '../actions';
+import Item from './Item';
+import CategoryHeading from './CategoryHeading';
+import { getCategoryName } from '../helpers/category';
+import { getCalculatedValues } from '../helpers/calculate';
+import { getGroupedItems } from '../helpers/items';
+import Button from './Button';
+import Section from './Section';
 
-import '../styles/list.scss'
+const List = ({ groupedItems, saldo, itemType, investment, handleAdd }) => (
+  <div>
+    <Section size="sm">
+      {groupedItems
+        .reduce((items, category) => [
+          ...items,
+          <CategoryHeading key={category.id} title={getCategoryName(category.id)}/>,
+          ...category.items
+            .map(({ id, title, amount, responsible }) => (
+              <Item
+                key={id}
+                {...{ id, title, amount, responsible, itemType }}
+              />
+            ))
+        ], [])
+      }
 
-const List = ({ add, edit, items, itemType, responsible, remove, toggleEditMode }) =>
-  <div className="list">
-    {items
-      .filter(item => itemType === item.itemType && responsible === item.responsible)
-      .filter(({ amount }) => amount > 0)
-      .map(({ amount, id, itemType: type, title, calculated, editMode }, index) =>
-        <Item
-          key={id || index}
-          amount={amount}
-          title={title}
-          id={id}
-          itemType={type}
-          remove={remove}
-          responsible={responsible}
-          calculated={calculated}
-          edit={edit}
-          editMode={editMode}
-          toggleEditMode={toggleEditMode}
-        />
-      )
-    }
-    <ItemInput action={add} itemType={itemType} responsible={responsible} actionText="Toevoegen"/>
+      {
+        investment
+         ? <Item
+            itemType={itemType}
+            amount={investment}
+            title="Inleg gezamelijk"
+            calculated
+          />
+        : null
+      }
+
+      {
+        saldo
+          ? <Item itemType={SALDO} title="Saldo" amount={saldo}/>
+          : null
+      }
+    </Section>
+    <Button
+      small
+      onClick={handleAdd}
+    >Toevoegen</Button>
   </div>
+);
 
 List.propTypes = {
-  add: PropTypes.func.isRequired,
-  edit: PropTypes.func.isRequired,
+  groupedItems: PropTypes.objectOf(PropTypes.arrayOf(PropTypes.object)).isRequired,
+  saldo: PropTypes.number,
+  investment: PropTypes.number,
   itemType: PropTypes.string.isRequired,
-  items: PropTypes.array.isRequired,
-  remove: PropTypes.func.isRequired,
-  responsible: PropTypes.string.isRequired,
-  toggleEditMode: PropTypes.func.isRequired
+  handleAdd: PropTypes.func.isRequired
+};
+
+function mapStateToProps(state, ownProps) {
+  const { items: { items } } = state;
+  const { responsible, itemType } = ownProps;
+  const { saldo, investment } = itemType === EXPENSE
+    ? getCalculatedValues(items, responsible) :
+    {};
+
+  return {
+    itemType,
+    groupedItems: getGroupedItems(items, itemType, responsible),
+    saldo,
+    investment,
+    responsible
+  };
 }
 
-export default List
+function mapDispatchToProps(dispatch, ownProps) {
+  const { responsible, itemType } = ownProps;
+
+  return {
+    handleAdd() {
+      dispatch(openAddModal(itemType, responsible));
+    }
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(List);

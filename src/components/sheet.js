@@ -1,37 +1,54 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import styled from 'styled-components';
+import React from 'react';
+import PropTypes from 'prop-types';
 
-import List from './list'
-import Saldo from './saldo'
+import List from './List';
+import Container from './Container';
+import PageSection from './PageSection';
+import Title from './Title';
 
-import '../styles/sheet.scss'
+import { INCOME, EXPENSE } from '../constants';
 
-import { INCOME, EXPENSE } from '../constants'
-
-const Sheet = ({ add, edit, items, remove, responsible, title, toggleEditMode }) => {
-  const scopedItems = items.filter(item => item.responsible === responsible)
-  const listProps = { add, edit, items: scopedItems, remove, responsible, toggleEditMode }
-
+const Sheet = ({ responsible, title }) => {
   return (
-    <div className="sheet">
-      <h2>{title}</h2>
-      <div className="clearfix">
-        <List {...listProps} itemType={INCOME}/>
-        <List {...listProps} itemType={EXPENSE}/>
-      </div>
-      <Saldo items={items} responsible={responsible}/>
-    </div>
-  )
-}
+    <PageSection>
+      <Container>
+        <Title>{title}</Title>
+        <Lists>
+          <ListContainer>
+            <List responsible={responsible} itemType={INCOME}/>
+          </ListContainer>
+          <ListContainer>
+            <List responsible={responsible} itemType={EXPENSE}/>
+          </ListContainer>
+        </Lists>
+      </Container>
+    </PageSection>
+  );
+};
 
 Sheet.propTypes = {
-  add: PropTypes.func.isRequired,
-  edit: PropTypes.func.isRequired,
-  items: PropTypes.array.isRequired,
-  remove: PropTypes.func.isRequired,
   responsible: PropTypes.string.isRequired,
-  title: PropTypes.string.isRequired,
-  toggleEditMode: PropTypes.func.isRequired
-}
+  title: PropTypes.string.isRequired
+};
 
-export default Sheet
+const Lists = styled.div`
+  @media screen and (min-width: 760px) {
+    display: flex;
+  }
+`;
+
+const ListContainer = styled.div`
+  margin-bottom: ${props => props.theme.sizes.md};
+
+  @media screen and (min-width: 760px) {
+    margin-right: ${props => props.theme.sizes.md};
+    width: 50%;
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+`;
+
+export default Sheet;

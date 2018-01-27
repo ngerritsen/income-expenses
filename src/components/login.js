@@ -1,38 +1,70 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { Field, reduxForm } from 'redux-form';
 
-import '../styles/login.scss'
+import { login } from '../actions';
+import Title from './Title';
+import PageSection from './PageSection';
+import Container from './Container';
+import Button from './Button';
+import Input from './Input';
+import Section from './Section';
 
-const Login = ({ login }) => {
-  let emailInput, passwordInput
-
+const Login = ({ handleSubmit, onSubmit, invalid }) => {
   return (
-    <form className="login" onSubmit={e => {
-      e.preventDefault()
-      loginUser(login, emailInput, passwordInput)
-    }}>
-      <input type="text" className="input" placeholder="Email" ref={c => {
-        emailInput = c
-      }}/>
-      <input type="password" className="input" placeholder="Wachtwoord" ref={c => {
-        passwordInput = c
-      }}/>
-      <button type="submit" className="submit login__submit">Inloggen</button>
-    </form>
-  )
-}
-
-function loginUser(login, emailInput, passwordInput) {
-  const email = emailInput.value
-  const password = passwordInput.value
-
-  if (email.trim() !== '' && password.trim() !== '') {
-    login(email, password)
-  }
-}
+    <PageSection>
+      <Container narrow>
+        <Title>Login</Title>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <Section>
+            <Field component={Input} type="text" name="email" label="E-mail"/>
+          </Section>
+          <Section size="md">
+            <Field component={Input} type="password" name="password" label="Wachtwoord"/>
+          </Section>
+          <Button type="submit" disabled={invalid}>Inloggen</Button>
+        </form>
+      </Container>
+    </PageSection>
+  );
+};
 
 Login.propTypes = {
-  login: PropTypes.func.isRequired
+  handleSubmit: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
+  invalid: PropTypes.bool.isRequired
+};
+
+function validate(values) {
+  const errors = {};
+
+  if (!values.email || !values.email.match(/\S+@\S+\.\S+/)) {
+    errors.email = 'Vul een geldig email adres in.';
+  }
+
+  if (!values.password) {
+    errors.password = 'Vul een wachtwoord in.';
+  }
+
+  return errors;
 }
 
-export default Login
+function mapStateToProps() {
+  return {};
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    onSubmit({ email, password }) {
+      dispatch(login(email, password));
+    }
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(
+  reduxForm({
+    form: 'login',
+    validate
+  })(Login)
+);

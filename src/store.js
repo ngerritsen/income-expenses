@@ -1,19 +1,20 @@
-import { createStore, applyMiddleware } from 'redux'
-import { createLogger } from 'redux-logger'
-import createSagaMiddleware from 'redux-saga'
+import { createStore, applyMiddleware } from 'redux';
+import { createLogger } from 'redux-logger';
+import createSagaMiddleware from 'redux-saga';
 
-import reducer from './reducer'
-import rootSaga from './sagas'
+import reducer from './reducers';
+import rootSaga from './sagas';
 
-const middlewares = []
-const sagaMiddleware = createSagaMiddleware()
+const middlewares = [];
+const sagaMiddleware = createSagaMiddleware();
 
-middlewares.push(sagaMiddleware)
+middlewares.push(sagaMiddleware);
 
+// eslint-disable-next-line no-undef
 if (process.env.NODE_ENV !== 'production') {
-  middlewares.push(createLogger())
+  middlewares.push(createLogger());
 }
 
-export default createStore(reducer, applyMiddleware(...middlewares))
+export default createStore(reducer, applyMiddleware(...middlewares));
 
-sagaMiddleware.run(rootSaga)
+sagaMiddleware.run(rootSaga);

@@ -1,14 +1,20 @@
-import React from 'react'
+import React from 'react';
+import styled from 'styled-components';
 
-import '../styles/loader.scss'
+import FontAwesome from '@fortawesome/react-fontawesome';
+import { faCircleNotch } from '@fortawesome/fontawesome-pro-solid';
 
-const Loader = () =>
-  <div className="loader">
-    <div className="spinner">
-      <div className="bounce1"/>
-      <div className="bounce2"/>
-      <div className="bounce3"/>
-    </div>
-  </div>
+const Loader = () => (
+  <LoaderContainer>
+    <FontAwesome icon={faCircleNotch} spin/>
+  </LoaderContainer>
+);
 
-export default Loader
+const LoaderContainer = styled.div`
+  margin: 16rem auto 0;
+  font-size: 4rem;
+  color: ${props => props.theme.colors.grey};
+  text-align: center;
+`;
+
+export default Loader;

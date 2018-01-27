@@ -1,58 +1,73 @@
-import shortid from 'shortid'
+import shortid from 'shortid';
 
-import { ADD, REMOVE, EDIT, GET, LOGIN, LOGIN_SUCCESS, TOGGLE_EDIT_MODE } from './constants'
+import * as constants from './constants';
 
 export function login(email, password) {
   return {
-    type: LOGIN,
+    type: constants.LOGIN,
     email,
     password
-  }
+  };
 }
 
 export function loginSuccess() {
   return {
-    type: LOGIN_SUCCESS
-  }
+    type: constants.LOGIN_SUCCESS
+  };
 }
 
-export function add(itemData) {
-  const item = {
-    ...itemData,
-    id: shortid.generate()
-  }
-
+export function add(item) {
+  const id = shortid.generate();
   return {
-    type: ADD,
-    item
-  }
+    type: constants.ADD,
+    item: {
+      ...item,
+      id
+    },
+    id
+  };
 }
 
 export function remove(id) {
   return {
-    type: REMOVE,
+    type: constants.REMOVE,
     id
-  }
+  };
 }
 
-export function edit(id, item) {
+export function edit(item) {
   return {
-    type: EDIT,
-    item,
-    id
-  }
+    type: constants.EDIT,
+    item
+  };
 }
 
-export function toggleEditMode(id) {
+export function openEditModal(id, itemType, responsible) {
   return {
-    type: TOGGLE_EDIT_MODE,
+    type: constants.OPEN_EDIT_MODAL,
+    itemType,
+    responsible,
     id
-  }
+  };
+}
+
+export function openAddModal(itemType, responsible) {
+  return {
+    type: constants.OPEN_ADD_MODAL,
+    itemType,
+    responsible
+  };
+}
+
+export function closeModal() {
+  return {
+    type: constants.CLOSE_MODAL
+  };
 }
 
 export function get(items) {
   return {
-    type: GET,
+    type: constants.GET,
     items
-  }
+  };
 }

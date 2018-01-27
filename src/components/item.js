@@ -1,74 +1,109 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import styled from 'styled-components';
+import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { initialize } from 'redux-form';
+import FontAwesome from '@fortawesome/react-fontawesome';
+import { faEdit } from '@fortawesome/fontawesome-pro-solid';
 
-import { toCurrency } from '../helpers/formatting'
-import ItemInput from './item-input'
+import { INCOME, EXPENSE, SALDO, DEFAULT_CATEGORY } from '../constants';
+import { toCurrency } from '../helpers/formatting';
+import { openEditModal } from '../actions';
 
-import '../styles/item.scss'
-
-const Item = ({
-  amount, edit, editMode, calculated, title, id, itemType, remove, responsible, saldo, toggleEditMode
-}) =>
-  <div className={getItemClassName(itemType, calculated, saldo)}>
-    {(() => {
-      if (!editMode) {
-        return (
-          <div className="item__content">
-            <span className="item__title" onClick={
-              calculated ? null : () => toggleEditMode(id)
-            }>
-              {title}
-            </span>
-            <span className="item__amount" onClick={
-              calculated ? null : () => toggleEditMode(id)
-            }>
-              {toCurrency(amount)}
-            </span>
-            <span className="item__tools">
-              <i
-                className="item__icon fa fa-times"
-                onClick={calculated ? null : () => remove(id)}
-              />
-            </span>
-          </div>
-        )
+const Item = ({ amount, calculated, dirty, title, itemType, handleEdit }) => (
+  <ItemContainer>
+    <ItemContent dirty={dirty} calculated={calculated}>
+      <ItemTitle itemType={itemType}>{title}</ItemTitle>
+      <ItemAmount negative={amount < 0} itemType={itemType}>{toCurrency(amount)}</ItemAmount>
+      {
+        itemType !== SALDO &&
+        !calculated &&
+        <ItemEdit onClick={handleEdit}>
+          <FontAwesome icon={faEdit}/>
+        </ItemEdit>
       }
-
-      return (
-        <div className="item__input">
-          <ItemInput
-            title={title}
-            amount={amount}
-            action={edit}
-            itemType={itemType}
-            responsible={responsible}
-            actionText="Sla op"
-            id={id}
-          />
-        </div>
-      )
-    })()}
-  </div>
-
-function getItemClassName(itemType, calculated, saldo) {
-  return 'item' +
-  (itemType ? ` item--${itemType}` : '') +
-  (calculated ? ' item--calculated' : '') +
-  (saldo ? ' item--saldo' : '')
-}
+      {(itemType === SALDO  || calculated) && <ItemEdit/>}
+    </ItemContent>
+  </ItemContainer>
+);
 
 Item.propTypes = {
   amount: PropTypes.number.isRequired,
   calculated: PropTypes.bool,
-  edit: PropTypes.func,
-  editMode: PropTypes.bool,
+  category: PropTypes.string,
   id: PropTypes.string,
+  dirty: PropTypes.bool,
   itemType: PropTypes.string,
-  remove: PropTypes.func,
-  responsible: PropTypes.string,
   saldo: PropTypes.bool,
   title: PropTypes.string.isRequired,
-  toggleEditMode: PropTypes.func
+  handleEdit: PropTypes.func.isRequired
+};
+
+const ItemContainer = styled.div`
+  border-bottom: 1px solid ${props => props.theme.colors.border};
+`;
+
+const ItemContent = styled.div`
+  opacity: ${props => props.dirty ? 0.5 : 1};
+  display: flex;
+  padding: 1.2rem 0;
+  color: ${props => props.calculated ? props.theme.colors.grey : 'inherit'}
+`;
+
+const ItemTitle = styled.div`
+  flex-grow: 1;
+  font-weight: ${props => props.itemType === SALDO ? 'bold' : 'regular'};
+  margin-right: ${props => props.theme.sizes.sm};
+`;
+
+const ItemAmount = styled.div`
+  margin-right: ${props => props.theme.sizes.sm};
+  font-weight: ${props => props.itemType === SALDO ? 'bold' : 'regular'};
+  color: ${props => {
+    switch (props.itemType) {
+      case EXPENSE:
+        return props.theme.colors.red;
+      case INCOME:
+        return props.theme.colors.green;
+      case SALDO:
+        return props.negative
+          ? props.theme.colors.red
+          : props.theme.colors.foreground;
+    }
+  }}
+`;
+
+const ItemEdit = styled.div`
+  color: ${props => props.theme.colors.grey};
+  position: relative;
+  top: 0.3rem;
+  font-size: 0.9em;
+  width: 2rem;
+
+  &:focus,
+  &:hover {
+    color: ${props => props.theme.colors.blue};
+    cursor: pointer;
+  }
+`;
+
+function mapStateToProps() {
+  return {};
 }
 
-export default Item
+function mapDispatchToProps(dispatch, ownProps) {
+  const { id, itemType, responsible, title, category, amount } = ownProps;
+
+  return {
+    handleEdit() {
+      dispatch(openEditModal(id, itemType, responsible));
+      dispatch(initialize('item', {
+        title,
+        category: category || DEFAULT_CATEGORY,
+        amount
+      }));
+    }
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Item);
