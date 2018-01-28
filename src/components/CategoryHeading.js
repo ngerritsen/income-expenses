@@ -16,9 +16,13 @@ CategoryHeading.propTypes = {
 const CategoryHeadingContainer = styled.div`
   border-bottom: 1px solid ${props => lighten(0.3, props.theme.colors.highlight)};
   color: ${props => props.theme.colors.highlight};
-  padding: 1.6rem 0 0.8rem;
+  padding: ${props => props.theme.sizes.sm} 0 ${props => props.theme.sizes.xs};
   font-size: 1.4rem;
   font-weight: bold;
+
+  &:first-child {
+    padding-top: ${props => props.theme.sizes.xxs};
+  }
 `;
 
 export default CategoryHeading;
