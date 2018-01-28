@@ -33,7 +33,7 @@ Sheet.propTypes = {
 };
 
 const Lists = styled.div`
-  @media screen and (min-width: 760px) {
+  @media screen and (min-width: ${props => props.theme.mobile}) {
     display: flex;
   }
 `;
@@ -41,7 +41,7 @@ const Lists = styled.div`
 const ListContainer = styled.div`
   margin-bottom: ${props => props.theme.sizes.md};
 
-  @media screen and (min-width: 760px) {
+  @media screen and (min-width: ${props => props.theme.mobile}) {
     margin-right: ${props => props.theme.sizes.md};
     width: 50%;
 

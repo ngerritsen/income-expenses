@@ -36,6 +36,7 @@ Modal.propTypes = {
 const ModalOverlay = styled.div`
   display: flex;
   flex-direction: column;
+  z-index: 3;
   position: fixed;
   top: 0;
   bottom: 0;

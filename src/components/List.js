@@ -54,7 +54,18 @@ const List = ({ groupedItems, saldo, itemType, investment, handleAdd }) => (
 );
 
 List.propTypes = {
-  groupedItems: PropTypes.objectOf(PropTypes.arrayOf(PropTypes.object)).isRequired,
+  groupedItems: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    items: PropTypes.arrayOf(PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      title: PropTypes.string.isRequired,
+      amount: PropTypes.number.isRequired,
+      dirty: PropTypes.bool,
+      category: PropTypes.string,
+      responsible: PropTypes.string.isRequired,
+      itemType: PropTypes.string.isRequired
+    })).isRequired
+  })).isRequired,
   saldo: PropTypes.number,
   investment: PropTypes.number,
   itemType: PropTypes.string.isRequired,

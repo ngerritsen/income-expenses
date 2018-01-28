@@ -20,6 +20,7 @@ const theme = {
     green: '#26de81',
     coin: '#fed330'
   },
+  mobile: '750px',
   sizes: {
     xxs: getSize(0.5),
     xs: getSize(1),

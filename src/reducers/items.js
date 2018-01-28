@@ -23,7 +23,7 @@ function addItem(state, action) {
 function removeItem(state, action) {
   return {
     ...state,
-    items: updateItem(state.items, action.item.id, item => ({
+    items: updateItem(state.items, action.id, item => ({
       ...item,
       dirty: true
     }))
