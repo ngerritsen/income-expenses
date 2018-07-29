@@ -1,11 +1,26 @@
-export const ADD = 'ADD';
-export const REMOVE = 'REMOVE';
-export const EDIT = 'EDIT';
+export const ADD_ITEM = 'ADD_ITEM';
+export const ADD_ITEM_SUCCEEDED = 'ADD_ITEM_SUCCEEDED';
+export const ADD_ITEM_FAILED = 'ADD_ITEM_FAILED';
 
-export const GET = 'GET';
+export const REMOVE_ITEM = 'REMOVE_ITEM';
+export const REMOVE_ITEM_SUCCEEDED = 'REMOVE_ITEM_SUCCEEDED';
+export const REMOVE_ITEM_FAILED = 'REMOVE_ITEM_FAILED';
+
+export const EDIT_ITEM = 'EDIT_ITEM';
+export const EDIT_ITEM_SUCCEEDED = 'EDIT_ITEM_SUCCEEDED';
+export const EDIT_ITEM_FAILED = 'EDIT_ITEM_FAILED';
+
+export const GET_ALL_ITEMS = 'GET_ALL_ITEMS';
+export const GET_ALL_ITEMS_SUCCEEDED = 'GET_ALL_ITEMS_SUCCEEDED';
+export const GET_ALL_ITEMS_FAILED = 'GET_ALL_ITEMS_FAILED';
+
 export const LOGIN = 'LOGIN';
-export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
+export const LOGIN_SUCCEEDED = 'LOGIN_SUCCEEDED';
+export const LOGIN_FAILED = 'LOGIN_FAILED';
+
 export const LOGOUT = 'LOGOUT';
+export const LOGOUT_SUCCEEDED = 'LOGOUT_SUCCEEDED';
+export const LOGOUT_FAILED = 'LOGOUT_FAILED';
 
 export const MAN = 'man';
 export const WOMAN = 'woman';
@@ -32,4 +47,11 @@ export const CATEGORIES = [
   { id: 'g4Dfd-23g', name: 'Verzekeringen' }
 ];
 
-export const FIREBASE_URL = 'https://income-expense.firebaseio.com';
+export const FIREBASE_CONFIG = {
+  apiKey: "AIzaSyBlbjTrwLB2HQN31t40jKxLxFB9-nFge_I",
+  authDomain: "income-expense.firebaseapp.com",
+  databaseURL: "https://income-expense.firebaseio.com",
+  projectId: "firebase-income-expense",
+  storageBucket: "firebase-income-expense.appspot.com",
+  messagingSenderId: "177770040301"
+};

@@ -1,79 +1,41 @@
+import * as constants from './constants';
 import shortid from 'shortid';
 
-import * as constants from './constants';
+export const login = (email, password) => ({ type: constants.LOGIN, email, password });
+export const loginSucceeded = () => ({ type: constants.LOGIN_SUCCEEDED });
+export const loginFailed = () => ({ type: constants.LOGIN_FAILED });
 
-export function login(email, password) {
-  return {
-    type: constants.LOGIN,
-    email,
-    password
-  };
-}
+export const logout = () => ({ type: constants.LOGOUT });
+export const logoutSucceeded = () => ({ type: constants.LOGOUT_SUCCEEDED });
+export const logoutFailed = () => ({ type: constants.LOGOUT_FAILED });
 
-export function loginSuccess() {
-  return {
-    type: constants.LOGIN_SUCCESS
-  };
-}
+export const getAllItems = () => ({ type: constants.GET_ALL_ITEMS });
+export const getAllItemsSucceeded = items => ({ type: constants.GET_ALL_ITEMS_SUCCEEDED, items });
+export const getAllItemsFailed = () => ({ type: constants.GET_ALL_ITEMS_FAILED });
 
-export function logout() {
-  return {
-    type: constants.LOGOUT
-  };
-}
+export const addItem = (item) => ({ type: constants.ADD_ITEM, item, id: shortid.generate() });
+export const addItemSucceeded = (id) => ({ type: constants.ADD_ITEM_SUCCEEDED, id });
+export const addItemFailed = (id) => ({ type: constants.ADD_ITEM_FAILED, id });
 
-export function add(item) {
-  const id = shortid.generate();
-  return {
-    type: constants.ADD,
-    item: {
-      ...item,
-      id
-    },
-    id
-  };
-}
+export const removeItem = (id) => ({ type: constants.REMOVE_ITEM, id });
+export const removeItemSucceeded = (id) => ({ type: constants.REMOVE_ITEM_SUCCEEDED, id });
+export const removeItemFailed = (id) => ({ type: constants.REMOVE_ITEM_FAILED, id });
 
-export function remove(id) {
-  return {
-    type: constants.REMOVE,
-    id
-  };
-}
+export const editItem = (item) => ({ type: constants.EDIT_ITEM, item });
+export const editItemSucceeded = (id) => ({ type: constants.EDIT_ITEM_SUCCEEDED, id });
+export const editItemFailed = (id) => ({ type: constants.EDIT_ITEM_FAILED, id });
 
-export function edit(item) {
-  return {
-    type: constants.EDIT,
-    item
-  };
-}
+export const openEditModal = (id, itemType, responsible) => ({
+  type: constants.OPEN_EDIT_MODAL,
+  itemType,
+  responsible,
+  id
+});
 
-export function openEditModal(id, itemType, responsible) {
-  return {
-    type: constants.OPEN_EDIT_MODAL,
-    itemType,
-    responsible,
-    id
-  };
-}
+export const openAddModal = (itemType, responsible) => ({
+  type: constants.OPEN_ADD_MODAL,
+  itemType,
+  responsible
+});
 
-export function openAddModal(itemType, responsible) {
-  return {
-    type: constants.OPEN_ADD_MODAL,
-    itemType,
-    responsible
-  };
-}
-
-export function closeModal() {
-  return {
-    type: constants.CLOSE_MODAL
-  };
-}
-
-export function get(items) {
-  return {
-    type: constants.GET,
-    items
-  };
-}
+export const closeModal = () => ({ type: constants.CLOSE_MODAL });

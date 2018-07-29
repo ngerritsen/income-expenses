@@ -7,13 +7,13 @@ import Header from './Header';
 import Loader from './Loader';
 import Login from './Login';
 
-const App = ({ initialized, loggedIn }) => {
+const App = ({ authenticationInitialized, initialized, loggedIn }) => {
   return (
     <div>
       <Header/>
       <div className="container">
         {(() => {
-          if (!loggedIn) {
+          if (authenticationInitialized && !loggedIn) {
             return <Login/>;
           }
 
@@ -29,6 +29,7 @@ const App = ({ initialized, loggedIn }) => {
 };
 
 App.propTypes = {
+  authenticationInitialized: PropTypes.bool.isRequired,
   initialized: PropTypes.bool.isRequired,
   loggedIn: PropTypes.bool.isRequired
 };
@@ -36,7 +37,8 @@ App.propTypes = {
 function mapStateToProps(state) {
   return {
     loggedIn: state.authentication.loggedIn,
-    initialized: state.items.initialized
+    initialized: state.items.initialized && state.authentication.initialized,
+    authenticationInitialized: state.authentication.initialized
   };
 }
 

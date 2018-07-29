@@ -1,5 +1,5 @@
 import { mapReducers } from 'redux-map-reducers';
-import { OPEN_ADD_MODAL, OPEN_EDIT_MODAL, CLOSE_MODAL } from '../constants';
+import * as constants from '../constants';
 
 const initialState = {
   isOpen: false,
@@ -9,9 +9,9 @@ const initialState = {
 };
 
 const reducerMap = {
-  [OPEN_ADD_MODAL]: openModal,
-  [OPEN_EDIT_MODAL]: openModal,
-  [CLOSE_MODAL]: closeModal
+  [constants.OPEN_ADD_MODAL]: openModal,
+  [constants.OPEN_EDIT_MODAL]: openModal,
+  [constants.CLOSE_MODAL]: closeModal
 };
 
 function openModal(state, action) {

@@ -1,25 +1,28 @@
 import { mapReducers } from 'redux-map-reducers';
-import { LOGIN_SUCCESS, LOGOUT } from '../constants';
+import * as constants from '../constants';
 
 const initialState = {
+  initialized: false,
   loggedIn: false
 };
 
 const reducerMap = {
-  [LOGIN_SUCCESS]: loginSuccess,
-  [LOGOUT]: logout
+  [constants.LOGIN_SUCCEEDED]: loginSucceeded,
+  [constants.LOGOUT_SUCCEEDED]: logoutSucceeded
 };
 
-function loginSuccess(state) {
+function loginSucceeded(state) {
   return {
     ...state,
+    initialized: true,
     loggedIn: true
   };
 }
 
-function logout(state) {
+function logoutSucceeded(state) {
   return {
     ...state,
+    initialized: true,
     loggedIn: false
   };
 }

@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { Field, reduxForm } from 'redux-form';
 import { CATEGORIES, DEFAULT_CATEGORY } from '../constants';
 
-import { closeModal, add, edit, remove } from '../actions';
+import { closeModal, addItem, editItem, removeItem } from '../actions';
 import Button from './Button';
 import Title from './Title';
 import Section from './Section';
@@ -95,13 +95,13 @@ function mergeProps(stateProps, dispatchProps, ownProps) {
     ...ownProps,
     onSubmit({ title, amount, category }) {
       const item = { id, itemType, responsible, title, amount: Number(amount), category };
-      const action = editMode ? dispatchProps.edit : dispatchProps.add;
+      const action = editMode ? dispatchProps.editItem : dispatchProps.addItem;
 
       action(item);
       dispatchProps.closeModal();
     },
     onRemove() {
-      dispatchProps.remove(id);
+      dispatchProps.removeItem(id);
       dispatchProps.closeModal();
     }
   };
@@ -121,7 +121,7 @@ function validate(values) {
   return errors;
 }
 
-export default connect(mapStateToProps, { closeModal, add, edit, remove }, mergeProps)(
+export default connect(mapStateToProps, { closeModal, addItem, editItem, removeItem }, mergeProps)(
   reduxForm({
     form: 'item',
     initialValues: {

@@ -82,7 +82,7 @@ const HeaderTitle = styled.h1`
 
 function mapStateToProps(state) {
   return {
-    dirty: Boolean(state.items.items.find(item => item.dirty)),
+    dirty: Boolean(state.items.items.some(item => item.dirty)),
     showStatus: state.items.initialized && state.authentication.loggedIn
   };
 }

@@ -1,14 +1,11 @@
 import { createStore, applyMiddleware } from 'redux';
 import { createLogger } from 'redux-logger';
-import createSagaMiddleware from 'redux-saga';
 
+import authenticationMiddleware from './middlewares/authentication';
+import itemsMiddleware from './middlewares/items';
 import reducer from './reducers';
-import rootSaga from './sagas';
 
-const middlewares = [];
-const sagaMiddleware = createSagaMiddleware();
-
-middlewares.push(sagaMiddleware);
+const middlewares = [authenticationMiddleware, itemsMiddleware];
 
 // eslint-disable-next-line no-undef
 if (process.env.NODE_ENV !== 'production') {
@@ -16,5 +13,3 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 export default createStore(reducer, applyMiddleware(...middlewares));
-
-sagaMiddleware.run(rootSaga);
