@@ -5,7 +5,7 @@ import { put, call } from 'redux-saga/effects';
 
 import firebaseRef from './firebase';
 import { ADD, REMOVE, EDIT, LOGIN } from './constants';
-import { get, loginSuccess } from './actions';
+import { get, loginSuccess, logout } from './actions';
 import { objectToArray } from './helpers/utility';
 
 export default function *rootSaga() {
@@ -67,11 +67,15 @@ function *edit({ item }) {
 }
 
 function *getSaga() {
-  const data = yield call(getItems);
-  const itemsObj = data.val();
-  const items = itemsObj ? objectToArray(itemsObj) : [];
+  try {
+    const data = yield call(getItems);
+    const itemsObj = data.val();
+    const items = itemsObj ? objectToArray(itemsObj) : [];
 
-  yield put(get(items));
+    yield put(get(items));
+  } catch(error) {
+    yield* handleFirebaseError(error);
+  }
 }
 
 function doLogin(email, password) {
@@ -97,4 +101,13 @@ function getItems() {
         console.error(error); // eslint-disable-line no-console
       });
   });
+}
+
+function *handleFirebaseError(error) {
+  if (error.message && error.message.toLowerCase().includes('permission_denied')) {
+    yield put(logout());
+    return;
+  }
+
+  throw error;
 }

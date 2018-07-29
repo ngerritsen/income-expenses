@@ -16,6 +16,12 @@ export function loginSuccess() {
   };
 }
 
+export function logout() {
+  return {
+    type: constants.LOGOUT
+  };
+}
+
 export function add(item) {
   const id = shortid.generate();
   return {
