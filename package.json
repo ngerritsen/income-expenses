@@ -14,9 +14,9 @@
   "author": "Niels Gerritsen",
   "license": "ISC",
   "dependencies": {
-    "@fortawesome/fontawesome": "^1.1.2",
-    "@fortawesome/fontawesome-pro-solid": "^5.0.4",
-    "@fortawesome/react-fontawesome": "0.0.17",
+    "@fortawesome/fontawesome-svg-core": "^1.2.2",
+    "@fortawesome/pro-solid-svg-icons": "^5.2.0",
+    "@fortawesome/react-fontawesome": "^0.1.0",
     "firebase": "^2.4.2",
     "polished": "^1.9.0",
     "prop-types": "^15.6.0",

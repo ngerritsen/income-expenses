@@ -3,8 +3,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { initialize } from 'redux-form';
-import FontAwesome from '@fortawesome/react-fontawesome';
-import { faEdit } from '@fortawesome/fontawesome-pro-solid';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEdit } from '@fortawesome/pro-solid-svg-icons';
 
 import { INCOME, EXPENSE, SALDO, DEFAULT_CATEGORY } from '../constants';
 import { toCurrency } from '../helpers/formatting';
@@ -19,7 +19,7 @@ const Item = ({ amount, calculated, dirty, title, itemType, handleEdit }) => (
         itemType !== SALDO &&
         !calculated &&
         <ItemEdit onClick={handleEdit}>
-          <FontAwesome icon={faEdit}/>
+          <FontAwesomeIcon icon={faEdit}/>
         </ItemEdit>
       }
       {(itemType === SALDO  || calculated) && <ItemEdit/>}

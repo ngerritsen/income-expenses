@@ -3,28 +3,28 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { darken } from 'polished';
 import { connect } from 'react-redux';
-import FontAwesome from '@fortawesome/react-fontawesome';
-import { faUsdCircle } from '@fortawesome/fontawesome-pro-solid';
-import { faSync } from '@fortawesome/fontawesome-pro-solid';
-import { faCheck } from '@fortawesome/fontawesome-pro-solid';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUsdCircle } from '@fortawesome/pro-solid-svg-icons';
+import { faSync } from '@fortawesome/pro-solid-svg-icons';
+import { faCheck } from '@fortawesome/pro-solid-svg-icons';
 
 import Container from './Container';
 
 const Header = ({ dirty, showStatus }) => (
   <div>
-    <HeaderBar placeholder/>
+    <HeaderBar asPlaceholder/>
     <HeaderBar>
       <Container>
         <HeaderContent>
           <LogoContainer>
-            <FontAwesome icon={faUsdCircle}/>
+            <FontAwesomeIcon icon={faUsdCircle}/>
           </LogoContainer>
           <HeaderTitle>In & uit</HeaderTitle>
           {
             showStatus &&
             <Status dirty={dirty}>
-              {dirty && <FontAwesome icon={faSync} spin/>}
-              {!dirty && <FontAwesome icon={faCheck}/>}
+              {dirty && <FontAwesomeIcon icon={faSync} spin/>}
+              {!dirty && <FontAwesomeIcon icon={faCheck}/>}
             </Status>
           }
         </HeaderContent>
@@ -46,10 +46,10 @@ const LogoContainer = styled.span`
 `;
 
 const HeaderBar = styled.header`
-  position: ${props => props.placeholder ? 'static' : 'fixed'};
+  position: ${props => props.asPlaceholder ? 'static' : 'fixed'};
   top: 0;
   width: 100%;
-  z-index: ${props => props.placeholder ? 'inherit' : 2};
+  z-index: ${props => props.asPlaceholder ? 'inherit' : 2};
   background-color: ${props => props.theme.colors.white};
   height: 6rem;
   border-bottom: 1px solid ${props => darken(0.05, props.theme.colors.white)};

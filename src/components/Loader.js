@@ -1,12 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import FontAwesome from '@fortawesome/react-fontawesome';
-import { faCircleNotch } from '@fortawesome/fontawesome-pro-solid';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCircleNotch } from '@fortawesome/pro-solid-svg-icons';
 
 const Loader = () => (
   <LoaderContainer>
-    <FontAwesome icon={faCircleNotch} spin/>
+    <FontAwesomeIcon icon={faCircleNotch} spin/>
   </LoaderContainer>
 );
 
