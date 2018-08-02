@@ -95,7 +95,7 @@ function markClean(item) {
   return {
     ...item,
     dirty: false
-  }
+  };
 }
 
 export default mapReducers(reducerMap, initialState);
