@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server",
-    "build": "rm -Rf dist; mkdir dist; cp index.html dist; cp favicon.png dist; NODE_ENV=production webpack",
+    "build": "rm -Rf dist; mkdir dist; cp favicon.png dist; NODE_ENV=production webpack",
     "test": "eslint ."
   },
   "engines": {
@@ -25,7 +25,7 @@
     "react-redux": "^5.0.1",
     "redux": "^3.5.2",
     "redux-form": "^7.2.1",
-    "redux-map-action-handlers": "^1.0.0",
+    "redux-map-action-handlers": "^1.0.2",
     "redux-map-reducers": "^1.0.1",
     "redux-saga": "^0.16.0",
     "shortid": "^2.2.6"
