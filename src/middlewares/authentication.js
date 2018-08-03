@@ -17,13 +17,20 @@ const handleAction = createActionHandler({
 
 export default function authenticationMiddleware(store) {
   authenticationService.onLoginStateChange((loggedIn) => {
-    console.log(loggedIn);
-    if (loggedIn && !store.getState().authentication.loggedIn) {
+    const { authentication } = store.getState();
+
+    if (loggedIn && !authentication.loggedIn) {
       store.dispatch(actions.loginSucceeded());
       store.dispatch(actions.getAllItems());
     }
 
-    if (!loggedIn && store.getState().authentication.loggedIn) {
+    if (
+      !loggedIn &&
+      (
+        authentication.loggedIn ||
+        !authentication.initialized
+      )
+    ) {
       store.dispatch(actions.logoutSucceeded());
     }
   });
