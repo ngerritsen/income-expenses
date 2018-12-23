@@ -20,6 +20,13 @@ export function edit(item) {
   return getItemsRef().child(item.id).update(item);
 }
 
+export function editMultiple(items) {
+  return getItemsRef().update(items.reduce((updates, item) => ({
+    ...updates,
+    [item.id]: item
+  })));
+}
+
 function getItemsRef() {
   return firebase.database().ref('items');
 }

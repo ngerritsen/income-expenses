@@ -10,7 +10,10 @@ export default mapActionHandlers({
   [constants.GET_ALL_ITEMS]: getAllItems,
   [constants.ADD_ITEM]: addItem,
   [constants.EDIT_ITEM]: editItem,
-  [constants.REMOVE_ITEM]: removeItem
+  [constants.REMOVE_ITEM]: removeItem,
+  [constants.MARK_ITEM_AS_PAYED]: markItemAsPayed,
+  [constants.UNMARK_ITEM_AS_PAYED]: unmarkItemAsPayed,
+  [constants.RESET_PAYMENTS]: resetPayments
 });
 
 async function getAllItems(store) {
@@ -40,6 +43,44 @@ async function editItem(store, { item }) {
   } catch (error) {
     console.error(error);
     store.dispatch(actions.editItemFailed(item.id));
+  }
+}
+
+async function markItemAsPayed(store, { id }) {
+  try {
+    await itemsRepository.edit({ id, payed: true });
+    store.dispatch(actions.markItemAsPayedSucceeded(id));
+  } catch (error) {
+    console.error(error);
+    store.dispatch(actions.markItemAsPayedFailed(id));
+  }
+}
+
+async function unmarkItemAsPayed(store, { id }) {
+  try {
+    await itemsRepository.edit({ id, payed: false });
+    store.dispatch(actions.unmarkItemAsPayedSucceeded(id));
+  } catch (error) {
+    console.error(error);
+    store.dispatch(actions.unmarkItemAsPayedFailed(id));
+  }
+}
+
+async function resetPayments(store, { responsible }) {
+  try {
+    const itemsToUpdate = store.getState().items.items
+      .filter(item => (
+        item.responsible === responsible &&
+        item.itemType === constants.EXPENSE &&
+        item.payed === true
+      ))
+      .map(item => ({ ...item, payed: false }));
+
+    await itemsRepository.editMultiple(itemsToUpdate);
+    store.dispatch(actions.resetPaymentsSucceeded(responsible));
+  } catch (error) {
+    console.error(error);
+    store.dispatch(actions.resetPaymentsFailed(responsible));
   }
 }
 

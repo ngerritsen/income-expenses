@@ -13,19 +13,23 @@ import App from './components/App';
 
 const rootEl = document.getElementById('root');
 
-injectGlobal`
-  html {
-    font-size: 62.5%;
-  }
+function setGlobalStyling() {
+  injectGlobal`
+    html {
+      font-size: 62.5%;
+    }
 
-  body {
-    color: ${theme.colors.foreground};
-    font-size: 1.5rem;
-    margin: 0;
-    background-color: ${theme.colors.background};
-    font-family: 'Open Sans', Arial, sans-serif;
-  }
-`;
+    body {
+      color: ${theme.colors.foreground};
+      font-size: 1.5rem;
+      margin: 0;
+      background-color: ${theme.colors.background};
+      font-family: 'Open Sans', Arial, sans-serif;
+    }
+  `;
+}
+
+setGlobalStyling();
 
 ReactDOM.render(
   <Provider store={store}>

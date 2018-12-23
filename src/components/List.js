@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { SALDO, EXPENSE } from '../constants';
-import { openAddModal } from '../actions';
+import { openAddModal, resetPayments } from '../actions';
 import Item from './Item';
 import CategoryHeading from './CategoryHeading';
 import { getCategoryName } from '../helpers/category';
@@ -12,7 +12,7 @@ import { getGroupedItems } from '../helpers/items';
 import Button from './Button';
 import Section from './Section';
 
-const List = ({ groupedItems, saldo, itemType, investment, handleAdd }) => (
+const List = ({ groupedItems, saldo, itemType, investment, handleAdd, handleResetPayments }) => (
   <div>
     <Section size="sm">
       {groupedItems
@@ -20,15 +20,14 @@ const List = ({ groupedItems, saldo, itemType, investment, handleAdd }) => (
           ...items,
           <CategoryHeading key={category.id} title={getCategoryName(category.id)}/>,
           ...category.items
-            .map(({ id, title, amount, responsible }) => (
+            .map(({ id, title, amount, responsible, payed }) => (
               <Item
                 key={id}
-                {...{ id, title, amount, responsible, itemType }}
+                {...{ id, title, amount, responsible, itemType, payed }}
               />
             ))
         ], [])
       }
-
       {
         investment
          ? <Item
@@ -46,10 +45,20 @@ const List = ({ groupedItems, saldo, itemType, investment, handleAdd }) => (
           : null
       }
     </Section>
-    <Button
-      small
-      onClick={handleAdd}
-    >Toevoegen</Button>
+    <Section size="xs">
+      <Button
+        small
+        onClick={handleAdd}
+      >Toevoegen</Button>
+    </Section>
+    {
+      itemType === EXPENSE &&
+      <Button
+        small
+        warning
+        onClick={handleResetPayments}
+      >Reset betalingen</Button>
+    }
   </div>
 );
 
@@ -69,7 +78,8 @@ List.propTypes = {
   saldo: PropTypes.number,
   investment: PropTypes.number,
   itemType: PropTypes.string.isRequired,
-  handleAdd: PropTypes.func.isRequired
+  handleAdd: PropTypes.func.isRequired,
+  handleResetPayments: PropTypes.func.isRequired
 };
 
 function mapStateToProps(state, ownProps) {
@@ -94,6 +104,9 @@ function mapDispatchToProps(dispatch, ownProps) {
   return {
     handleAdd() {
       dispatch(openAddModal(itemType, responsible));
+    },
+    handleResetPayments() {
+      dispatch(resetPayments(responsible));
     }
   };
 }
