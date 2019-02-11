@@ -6,4 +6,6 @@ before_install:
 script:
   - npm test
   - npm run build
-# after_success: find dist -type f -exec curl -3 --ftp-create-dirs -T {} ftp://$FTP_USER:$FTP_PASSWORD@ftp.carehr.nl/public_html/in-uit/ \;
+after_success:
+  - "cd dist; zip -r ../income-expenses.zip *; cd .."
+  - "curl -F 'data=@income-expenses.zip' -H 'X-Key: '$DEPLOY_KEY -H 'X-ExtractTo: in-uit' https://carehr.nl/deploy/"
