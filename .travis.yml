@@ -6,6 +6,8 @@ before_install:
 script:
   - npm test
   - npm run build
-after_success:
-  - "cd dist; zip -r ../income-expenses.zip *; cd .."
-  - "curl -F 'data=@income-expenses.zip' -H 'X-Key: '$DEPLOY_KEY -H 'X-ExtractTo: in-uit' https://carehr.nl/deploy/"
+deploy:
+  skip_cleanup: true
+  provider: firebase
+  token:
+    secure: "$FIREBASE_TOKEN"
