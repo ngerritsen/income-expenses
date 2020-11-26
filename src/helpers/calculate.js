@@ -1,14 +1,24 @@
-import { EXPENSE, MAN, SHARED, WOMAN } from '../constants';
+import { EXPENSE, INCOME, MAN, SHARED, WOMAN } from '../constants';
 
-export function getCalculatedValues(items, responsible) {
+export function calculateSummary(items, responsible) {
   const saldos = calculateInitialSaldos(items);
   const saldo = saldos[responsible];
   const investments = calculateInvestments(saldos);
 
   return {
     investment: investments[responsible],
+    totalIncome: calculateTotal(items, responsible, INCOME),
+    totalExpense: calculateTotal(items, responsible, EXPENSE),
+    investmentMan: investments[MAN],
+    investmentWoman: investments[WOMAN],
     saldo: calculateFinalSaldo(saldo, investments, responsible)
   };
+}
+
+function calculateTotal(items, responsible, itemType) {
+  return items
+    .filter(item => item.itemType === itemType && item.responsible === responsible)
+    .reduce((total, item) => item.amount + total, 0)
 }
 
 function calculateInitialSaldos(items) {
@@ -20,15 +30,7 @@ function calculateInitialSaldos(items) {
 }
 
 function calculateInitialSaldo(items, responsible) {
-  return items
-    .filter(item => item.responsible === responsible)
-    .reduce((saldo, { amount, itemType }) => {
-      if (itemType === EXPENSE) {
-        return saldo - amount;
-      }
-
-      return saldo + amount;
-    }, 0);
+  return calculateTotal(items, responsible, INCOME) - calculateTotal(items, responsible, EXPENSE);
 }
 
 function calculateFinalSaldo(saldo, investments, responsible) {

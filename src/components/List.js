@@ -2,17 +2,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { SALDO, EXPENSE } from '../constants';
+import { SALDO, EXPENSE, INCOME, SHARED } from '../constants';
 import { openAddModal } from '../actions';
 import Item from './Item';
 import CategoryHeading from './CategoryHeading';
 import { getCategoryName } from '../helpers/category';
-import { getCalculatedValues } from '../helpers/calculate';
+import { calculateSummary } from '../helpers/calculate';
 import { getGroupedItems } from '../helpers/items';
 import Button from './Button';
 import Section from './Section';
 
-const List = ({ groupedItems, saldo, itemType, investment, handleAdd }) => (
+const List = ({ groupedItems, itemType, summary, handleAdd, responsible }) => (
   <div>
     <Section size="sm">
       {groupedItems
@@ -29,20 +29,50 @@ const List = ({ groupedItems, saldo, itemType, investment, handleAdd }) => (
         ], [])
       }
       {
-        investment
-         ? <Item
-            itemType={itemType}
-            amount={investment}
-            title="Inleg gezamelijk"
-            calculated
-          />
-        : null
-      }
-
-      {
-        saldo
-          ? <Item itemType={SALDO} title="Saldo" amount={saldo}/>
-          : null
+        summary &&
+        <React.Fragment>
+          <CategoryHeading title="Samenvatting"/>
+            <Item
+              itemType={INCOME}
+              amount={summary.totalIncome}
+              title="Inkomen"
+              calculated
+            />
+            {
+                responsible === SHARED &&
+                <Item
+                  itemType={INCOME}
+                  amount={summary.investmentMan}
+                  title="Inleg Niels"
+                  calculated
+                />
+            }
+            {
+                responsible === SHARED &&
+                <Item
+                  itemType={INCOME}
+                  amount={summary.investmentWoman}
+                  title="Inleg Peggy"
+                  calculated
+                />
+            }
+            <Item
+              itemType={EXPENSE}
+              amount={summary.totalExpense}
+              title="Uitgaven"
+              calculated
+            />
+            {
+                responsible !== SHARED &&
+                <Item
+                  itemType={EXPENSE}
+                  amount={summary.investment}
+                  title="Inleg gezamelijk"
+                  calculated
+                />
+            }
+            <Item itemType={SALDO} title="Saldo" amount={summary.saldo}/>
+        </React.Fragment>
       }
     </Section>
     <Section size="xs">
@@ -67,25 +97,29 @@ List.propTypes = {
       itemType: PropTypes.string.isRequired
     })).isRequired
   })).isRequired,
-  saldo: PropTypes.number,
-  investment: PropTypes.number,
+  summary: PropTypes.shape({
+    totalIncome: PropTypes.number.isRequired,
+    totalExpense: PropTypes.number.isRequired,
+    investmentMan: PropTypes.number.isRequired,
+    investmentWoman: PropTypes.number.isRequired,
+    saldo: PropTypes.number.isRequired,
+    investment: PropTypes.number,
+  }),
   itemType: PropTypes.string.isRequired,
-  handleAdd: PropTypes.func.isRequired
+  handleAdd: PropTypes.func.isRequired,
+  responsible: PropTypes.string.isRequired
 };
 
 function mapStateToProps(state, ownProps) {
   const { items: { items } } = state;
   const { responsible, itemType } = ownProps;
-  const { saldo, investment } = itemType === EXPENSE
-    ? getCalculatedValues(items, responsible) :
-    {};
+  const summary = itemType === EXPENSE ? calculateSummary(items, responsible) : null;
 
   return {
     itemType,
     groupedItems: getGroupedItems(items, itemType, responsible),
-    saldo,
-    investment,
-    responsible
+    responsible,
+    summary
   };
 }
 

@@ -14,7 +14,13 @@ const Item = ({ amount, calculated, dirty, title, itemType, handleEdit }) => (
   <ItemContainer>
     <ItemContent dirty={dirty} calculated={calculated}>
       <ItemTitle itemType={itemType}>{title}</ItemTitle>
-      <ItemAmount negative={amount < 0} itemType={itemType}>{toCurrency(amount)}</ItemAmount>
+      <ItemAmount
+        negative={amount < 0}
+        itemType={itemType}
+        calculated={calculated}
+      >
+        {toCurrency(amount)}
+      </ItemAmount>
       {
         itemType !== SALDO &&
         !calculated &&
@@ -60,6 +66,7 @@ const ItemTitle = styled.div`
 
 const ItemAmount = styled.div`
   margin-right: ${props => props.theme.sizes.sm};
+  opacity: ${props => props.calculated ? 0.7 : 1};
   font-weight: ${props => props.itemType === SALDO ? 'bold' : 'regular'};
   color: ${props => {
     switch (props.itemType) {
