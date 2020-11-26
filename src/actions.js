@@ -25,18 +25,6 @@ export const editItem = (item) => ({ type: constants.EDIT_ITEM, item });
 export const editItemSucceeded = (id) => ({ type: constants.EDIT_ITEM_SUCCEEDED, id });
 export const editItemFailed = (id) => ({ type: constants.EDIT_ITEM_FAILED, id });
 
-export const markItemAsPayed = (id) => ({ type: constants.MARK_ITEM_AS_PAYED, id });
-export const markItemAsPayedSucceeded = (id) => ({ type: constants.MARK_ITEM_AS_PAYED_SUCCEEDED, id });
-export const markItemAsPayedFailed = (id) => ({ type: constants.MARK_ITEM_AS_PAYED_FAILED, id });
-
-export const unmarkItemAsPayed = (id) => ({ type: constants.UNMARK_ITEM_AS_PAYED, id });
-export const unmarkItemAsPayedSucceeded = (id) => ({ type: constants.UNMARK_ITEM_AS_PAYED_SUCCEEDED, id });
-export const unmarkItemAsPayedFailed = (id) => ({ type: constants.UNMARK_ITEM_AS_PAYED_FAILED, id });
-
-export const resetPayments = (responsible) => ({ type: constants.RESET_PAYMENTS, responsible });
-export const resetPaymentsSucceeded = (responsible) => ({ type: constants.RESET_PAYMENTS_SUCCEEDED, responsible });
-export const resetPaymentsFailed = (responsible) => ({ type: constants.RESET_PAYMENTS_FAILED, responsible });
-
 export const openEditModal = (id, itemType, responsible) => ({
   type: constants.OPEN_EDIT_MODAL,
   itemType,

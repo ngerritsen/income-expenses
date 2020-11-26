@@ -5,23 +5,15 @@ import { connect } from 'react-redux';
 import { initialize } from 'redux-form';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit } from '@fortawesome/pro-solid-svg-icons';
-import { faCheckCircle, faCircle } from '@fortawesome/pro-regular-svg-icons';
 
 import { INCOME, EXPENSE, SALDO, DEFAULT_CATEGORY } from '../constants';
 import { toCurrency } from '../helpers/formatting';
-import { openEditModal, markItemAsPayed, unmarkItemAsPayed } from '../actions';
+import { openEditModal } from '../actions';
 
-const Item = ({ amount, calculated, dirty, title, itemType, payed, handleEdit, handlePaymentMarker }) => (
+const Item = ({ amount, calculated, dirty, title, itemType, handleEdit }) => (
   <ItemContainer>
     <ItemContent dirty={dirty} calculated={calculated}>
-      {
-          itemType === EXPENSE &&
-          !calculated &&
-        <ItemPayed onClick={handlePaymentMarker}>
-          <FontAwesomeIcon icon={payed ? faCheckCircle : faCircle}/>
-        </ItemPayed>
-      }
-      <ItemTitle onClick={handlePaymentMarker} itemType={itemType}>{title}</ItemTitle>
+      <ItemTitle itemType={itemType}>{title}</ItemTitle>
       <ItemAmount negative={amount < 0} itemType={itemType}>{toCurrency(amount)}</ItemAmount>
       {
         itemType !== SALDO &&
@@ -42,11 +34,9 @@ Item.propTypes = {
   id: PropTypes.string,
   dirty: PropTypes.bool,
   itemType: PropTypes.string,
-  payed: PropTypes.bool,
   saldo: PropTypes.bool,
   title: PropTypes.string.isRequired,
-  handleEdit: PropTypes.func.isRequired,
-  handlePaymentMarker: PropTypes.func.isRequired
+  handleEdit: PropTypes.func.isRequired
 };
 
 const ItemContainer = styled.div`
@@ -85,15 +75,6 @@ const ItemAmount = styled.div`
   }}
 `;
 
-const ItemPayed = styled.div`
-  color: ${props => props.theme.colors.highlight};
-  position: relative;
-  top: 0.15rem;
-  font-size: 0.9em;
-  width: 2rem;
-  cursor: pointer;
-`;
-
 const ItemEdit = styled.div`
   color: ${props => props.theme.colors.grey};
   position: relative;
@@ -112,7 +93,7 @@ function mapStateToProps() {
 }
 
 function mapDispatchToProps(dispatch, ownProps) {
-  const { id, itemType, responsible, title, category, amount, payed } = ownProps;
+  const { id, itemType, responsible, title, category, amount } = ownProps;
 
   return {
     handleEdit() {
@@ -122,9 +103,6 @@ function mapDispatchToProps(dispatch, ownProps) {
         category: category || DEFAULT_CATEGORY,
         amount
       }));
-    },
-    handlePaymentMarker() {
-      dispatch(payed ? unmarkItemAsPayed(id) : markItemAsPayed(id));
     }
   };
 }

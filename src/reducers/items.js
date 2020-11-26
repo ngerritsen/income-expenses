@@ -16,16 +16,7 @@ const reducerMap = {
   [constants.REMOVE_ITEM_FAILED]: removeItemFailed,
   [constants.EDIT_ITEM]: editItem,
   [constants.EDIT_ITEM_SUCCEEDED]: editItemSucceeded,
-  [constants.EDIT_ITEM_FAILED]: editItemFailed,
-  [constants.MARK_ITEM_AS_PAYED]: markItemAsPayed,
-  [constants.MARK_ITEM_AS_PAYED_SUCCEEDED]: markItemAsPayedSucceeded,
-  [constants.MARK_ITEM_AS_PAYED_FAILED]: markItemAsPayedFailed,
-  [constants.UNMARK_ITEM_AS_PAYED]: unmarkItemAsPayed,
-  [constants.UNMARK_ITEM_AS_PAYED_SUCCEEDED]: unmarkItemAsPayedSucceeded,
-  [constants.UNMARK_ITEM_AS_PAYED_FAILED]: unmarkItemAsPayedFailed,
-  [constants.RESET_PAYMENTS]: resetPayments,
-  [constants.RESET_PAYMENTS_SUCCEEDED]: resetPaymentsSucceeded,
-  [constants.RESET_PAYMENTS_FAILED]: resetPaymentsFailed
+  [constants.EDIT_ITEM_FAILED]: editItemFailed
 };
 
 function addItem(state, action) {
@@ -79,54 +70,8 @@ function editItemFailed(state, action) {
   return updateItem(state, action.id, item => markClean(item._previousVersion || item));
 }
 
-function markItemAsPayed(state, action) {
-  return updateItem(state, action.id, item => markDirty(markAsPayed(item)));
-}
-
-function markItemAsPayedSucceeded(state, action) {
-  return updateItem(state, action.id, markClean);
-}
-
-function markItemAsPayedFailed(state, action) {
-  return updateItem(state, action.id, item => markClean(unmarkAsPayed(item)));
-}
-
-function unmarkItemAsPayed(state, action) {
-  return updateItem(state, action.id, item => markDirty(unmarkAsPayed(item)));
-}
-
-function unmarkItemAsPayedSucceeded(state, action) {
-  return updateItem(state, action.id, markClean);
-}
-
-function unmarkItemAsPayedFailed(state, action) {
-  return updateItem(state, action.id, item => markClean(markAsPayed(item)));
-}
-
-function resetPayments(state, action) {
-  return updateItemsWithResponsibility(state, action.responsible, item => markDirty(unmarkAsPayed({
-    ...item,
-    _wasPayed: Boolean(item.payed)
-  })));
-}
-
-function resetPaymentsSucceeded(state, action) {
-  return updateItemsWithResponsibility(state, action.responsible, markClean);
-}
-
-function resetPaymentsFailed(state, action) {
-  return updateItemsWithResponsibility(state, action.responsible, item => markClean({
-    ...item,
-    payed: Boolean(item._wasPayed)
-  }));
-}
-
 function updateItem(state, id, updater) {
   return updateItems(state, 'id', id, updater);
-}
-
-function updateItemsWithResponsibility(state, responsible, updater) {
-  return updateItems(state, 'responsible', responsible, updater);
 }
 
 function updateItems(state, property, value, updater) {
@@ -154,20 +99,6 @@ function markClean(item) {
   return {
     ...item,
     dirty: false
-  };
-}
-
-function markAsPayed(item) {
-  return {
-    ...item,
-    payed: true
-  };
-}
-
-function unmarkAsPayed(item) {
-  return {
-    ...item,
-    payed: false
   };
 }
 

@@ -20,7 +20,8 @@ function openModal(state, action) {
     isOpen: true,
     id: action.id || '',
     responsible: action.responsible,
-    itemType: action.itemType
+    itemType: action.itemType,
+    category: action.category
   };
 }
 

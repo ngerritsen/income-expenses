@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { SALDO, EXPENSE } from '../constants';
-import { openAddModal, resetPayments } from '../actions';
+import { openAddModal } from '../actions';
 import Item from './Item';
 import CategoryHeading from './CategoryHeading';
 import { getCategoryName } from '../helpers/category';
@@ -12,7 +12,7 @@ import { getGroupedItems } from '../helpers/items';
 import Button from './Button';
 import Section from './Section';
 
-const List = ({ groupedItems, saldo, itemType, investment, handleAdd, handleResetPayments }) => (
+const List = ({ groupedItems, saldo, itemType, investment, handleAdd }) => (
   <div>
     <Section size="sm">
       {groupedItems
@@ -20,10 +20,10 @@ const List = ({ groupedItems, saldo, itemType, investment, handleAdd, handleRese
           ...items,
           <CategoryHeading key={category.id} title={getCategoryName(category.id)}/>,
           ...category.items
-            .map(({ id, title, amount, responsible, payed }) => (
+            .map(({ id, title, amount, responsible, category }) => (
               <Item
                 key={id}
-                {...{ id, title, amount, responsible, itemType, payed }}
+                {...{ id, title, amount, responsible, itemType, category }}
               />
             ))
         ], [])
@@ -51,14 +51,6 @@ const List = ({ groupedItems, saldo, itemType, investment, handleAdd, handleRese
         onClick={handleAdd}
       >Toevoegen</Button>
     </Section>
-    {
-      itemType === EXPENSE &&
-      <Button
-        small
-        warning
-        onClick={handleResetPayments}
-      >Reset betalingen</Button>
-    }
   </div>
 );
 
@@ -78,8 +70,7 @@ List.propTypes = {
   saldo: PropTypes.number,
   investment: PropTypes.number,
   itemType: PropTypes.string.isRequired,
-  handleAdd: PropTypes.func.isRequired,
-  handleResetPayments: PropTypes.func.isRequired
+  handleAdd: PropTypes.func.isRequired
 };
 
 function mapStateToProps(state, ownProps) {
@@ -104,9 +95,6 @@ function mapDispatchToProps(dispatch, ownProps) {
   return {
     handleAdd() {
       dispatch(openAddModal(itemType, responsible));
-    },
-    handleResetPayments() {
-      dispatch(resetPayments(responsible));
     }
   };
 }
