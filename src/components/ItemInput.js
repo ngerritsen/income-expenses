@@ -1,16 +1,27 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const ItemInput = ({ action, id, itemType, responsible, actionText, title, amount }) => {
+const ItemInput = ({
+  action,
+  id,
+  itemType,
+  responsible,
+  actionText,
+  title,
+  amount,
+}) => {
   let amountInput, titleInput;
 
   return (
-    <form className="item-input" onSubmit={e => {
-      e.preventDefault();
-      submitItem(action, amountInput, titleInput, itemType, responsible, id);
-    }}>
+    <form
+      className="item-input"
+      onSubmit={(e) => {
+        e.preventDefault();
+        submitItem(action, amountInput, titleInput, itemType, responsible, id);
+      }}
+    >
       <input
-        ref={c => {
+        ref={(c) => {
           titleInput = c;
         }}
         name="title"
@@ -20,7 +31,7 @@ const ItemInput = ({ action, id, itemType, responsible, actionText, title, amoun
         defaultValue={title}
       />
       <input
-        ref={c => {
+        ref={(c) => {
           amountInput = c;
         }}
         name="amount"
@@ -30,19 +41,28 @@ const ItemInput = ({ action, id, itemType, responsible, actionText, title, amoun
         step="any"
         defaultValue={amount}
       />
-      <button type="submit" className="submit item-input__submit" >{actionText}</button>
+      <button type="submit" className="submit item-input__submit">
+        {actionText}
+      </button>
     </form>
   );
 };
 
-function submitItem(action, amountInput, titleInput, itemType, responsible, id) {
+function submitItem(
+  action,
+  amountInput,
+  titleInput,
+  itemType,
+  responsible,
+  id
+) {
   const amount = amountInput.value;
   const title = titleInput.value;
   const item = {
     amount: Number(amount),
     title,
     itemType,
-    responsible
+    responsible,
   };
 
   if (isValidInput(amount, title)) {
@@ -77,7 +97,7 @@ ItemInput.propTypes = {
   id: PropTypes.string,
   itemType: PropTypes.string.isRequired,
   responsible: PropTypes.string.isRequired,
-  title: PropTypes.string
+  title: PropTypes.string,
 };
 
 export default ItemInput;

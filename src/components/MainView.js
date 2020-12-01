@@ -9,23 +9,23 @@ import ItemForm from './ItemForm';
 
 const MainView = ({ isModalOpen }) => (
   <div>
-    <Sheet responsible={MAN} title="Niels"/>
-    <Sheet responsible={WOMAN} title="Peggy"/>
-    <Sheet responsible={SHARED} title="Gezamelijk"/>
+    <Sheet responsible={MAN} title="Niels" />
+    <Sheet responsible={WOMAN} title="Peggy" />
+    <Sheet responsible={SHARED} title="Gezamelijk" />
 
     <Modal isOpen={isModalOpen}>
-      <ItemForm/>
+      <ItemForm />
     </Modal>
   </div>
 );
 
 MainView.propTypes = {
-  isModalOpen: PropTypes.bool.isRequired
+  isModalOpen: PropTypes.bool.isRequired,
 };
 
 function mapStateToProps(state) {
   return {
-    isModalOpen: state.modal.isOpen
+    isModalOpen: state.modal.isOpen,
   };
 }
 

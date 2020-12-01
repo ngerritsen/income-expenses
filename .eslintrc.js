@@ -1,27 +1,24 @@
 'use strict';
 
 module.exports = {
-  extends: [
-    'eslint:recommended',
-    'plugin:react/recommended'
-  ],
+  extends: ['eslint:recommended', 'plugin:react/recommended'],
   plugins: ['react'],
   parserOptions: {
     ecmaVersion: 2017,
     sourceType: 'module',
     ecmaFeatures: {
       jsx: true,
-      experimentalObjectRestSpread: true
-    }
+      experimentalObjectRestSpread: true,
+    },
   },
   rules: {
-    semi: 2
+    semi: 2,
   },
   globals: {
-    Promise: true
+    Promise: true,
   },
   env: {
     node: true,
-    browser: true
-  }
-}
+    browser: true,
+  },
+};

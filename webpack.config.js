@@ -9,33 +9,33 @@ const config = {
   output: {
     path: path.resolve('.'),
     publicPath: '/',
-    filename: 'bundle.js'
+    filename: 'bundle.js',
   },
   module: {
     rules: [
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        use: 'babel-loader'
-      }
-    ]
+        use: 'babel-loader',
+      },
+    ],
   },
   plugins: [
     new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify(env)
+      'process.env.NODE_ENV': JSON.stringify(env),
     }),
     new HtmlWebpackPlugin({
       template: './src/index.html',
-      hash: true
+      hash: true,
     }),
-  ]
+  ],
 };
 
 if (env === 'production') {
   config.devtool = undefined;
   config.output.path = path.resolve('./dist');
   config.plugins = [].concat(config.plugins, [
-    new webpack.optimize.UglifyJsPlugin()
+    new webpack.optimize.UglifyJsPlugin(),
   ]);
 }
 

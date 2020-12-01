@@ -10,7 +10,7 @@ export default mapActionHandlers({
   [constants.GET_ALL_ITEMS]: getAllItems,
   [constants.ADD_ITEM]: addItem,
   [constants.EDIT_ITEM]: editItem,
-  [constants.REMOVE_ITEM]: removeItem
+  [constants.REMOVE_ITEM]: removeItem,
 });
 
 async function getAllItems(store) {

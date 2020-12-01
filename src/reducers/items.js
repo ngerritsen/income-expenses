@@ -3,7 +3,7 @@ import * as constants from '../constants';
 
 const initialState = {
   items: [],
-  initialized: false
+  initialized: false,
 };
 
 const reducerMap = {
@@ -16,13 +16,13 @@ const reducerMap = {
   [constants.REMOVE_ITEM_FAILED]: removeItemFailed,
   [constants.EDIT_ITEM]: editItem,
   [constants.EDIT_ITEM_SUCCEEDED]: editItemSucceeded,
-  [constants.EDIT_ITEM_FAILED]: editItemFailed
+  [constants.EDIT_ITEM_FAILED]: editItemFailed,
 };
 
 function addItem(state, action) {
   return {
     ...state,
-    items: [...state.items, markDirty({ ...action.item, id: action.id })]
+    items: [...state.items, markDirty({ ...action.item, id: action.id })],
   };
 }
 
@@ -30,7 +30,7 @@ function getAllItemsSucceeded(state, action) {
   return {
     ...state,
     items: action.items,
-    initialized: true
+    initialized: true,
   };
 }
 
@@ -55,11 +55,13 @@ function removeItemFailed(state, action) {
 }
 
 function editItem(state, action) {
-  return updateItem(state, action.item.id, item => markDirty({
-    ...item,
-    ...action.item,
-    _previousVersion: item
-  }));
+  return updateItem(state, action.item.id, (item) =>
+    markDirty({
+      ...item,
+      ...action.item,
+      _previousVersion: item,
+    })
+  );
 }
 
 function editItemSucceeded(state, action) {
@@ -67,7 +69,9 @@ function editItemSucceeded(state, action) {
 }
 
 function editItemFailed(state, action) {
-  return updateItem(state, action.id, item => markClean(item._previousVersion || item));
+  return updateItem(state, action.id, (item) =>
+    markClean(item._previousVersion || item)
+  );
 }
 
 function updateItem(state, id, updater) {
@@ -77,28 +81,30 @@ function updateItem(state, id, updater) {
 function updateItems(state, property, value, updater) {
   return {
     ...state,
-    items: state.items.map(item => item[property] === value ? updater(item) : item)
+    items: state.items.map((item) =>
+      item[property] === value ? updater(item) : item
+    ),
   };
 }
 
 function removeItemById(state, id) {
   return {
     ...state,
-    items: state.items.filter(item => item.id !== id)
+    items: state.items.filter((item) => item.id !== id),
   };
 }
 
 function markDirty(item) {
   return {
     ...item,
-    dirty: true
+    dirty: true,
   };
 }
 
 function markClean(item) {
   return {
     ...item,
-    dirty: false
+    dirty: false,
   };
 }
 

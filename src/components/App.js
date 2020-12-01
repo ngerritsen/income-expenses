@@ -10,18 +10,18 @@ import Login from './Login';
 const App = ({ authenticationInitialized, initialized, loggedIn }) => {
   return (
     <div>
-      <Header/>
+      <Header />
       <div className="container">
         {(() => {
           if (authenticationInitialized && !loggedIn) {
-            return <Login/>;
+            return <Login />;
           }
 
           if (!initialized) {
-            return <Loader/>;
+            return <Loader />;
           }
 
-          return <MainView/>;
+          return <MainView />;
         })()}
       </div>
     </div>
@@ -31,14 +31,14 @@ const App = ({ authenticationInitialized, initialized, loggedIn }) => {
 App.propTypes = {
   authenticationInitialized: PropTypes.bool.isRequired,
   initialized: PropTypes.bool.isRequired,
-  loggedIn: PropTypes.bool.isRequired
+  loggedIn: PropTypes.bool.isRequired,
 };
 
 function mapStateToProps(state) {
   return {
     loggedIn: state.authentication.loggedIn,
     initialized: state.items.initialized && state.authentication.initialized,
-    authenticationInitialized: state.authentication.initialized
+    authenticationInitialized: state.authentication.initialized,
   };
 }
 

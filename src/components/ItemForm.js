@@ -14,23 +14,35 @@ import Select from './Select';
 import { capitalize } from '../helpers/formatting';
 import { MAN, WOMAN, SHARED, INCOME } from '../constants';
 
-const ItemForm = ({ invalid, handleSubmit, title, onCancel, onSubmit, onRemove, editMode }) => (
+const ItemForm = ({
+  invalid,
+  handleSubmit,
+  title,
+  onCancel,
+  onSubmit,
+  onRemove,
+  editMode,
+}) => (
   <form onSubmit={handleSubmit(onSubmit)}>
     <Title>{title}</Title>
     <Section>
-      <Field name="title" component={Input} type="text" label="Titel"/>
+      <Field name="title" component={Input} type="text" label="Titel" />
     </Section>
     <Section>
-      <Field name="amount" component={Input} type="number" step="0.01" label="Bedrag"/>
+      <Field
+        name="amount"
+        component={Input}
+        type="number"
+        step="0.01"
+        label="Bedrag"
+      />
     </Section>
     <Section size="md">
-      <Field
-        name="category"
-        component={Select}
-        label="Categorie"
-      >
+      <Field name="category" component={Select} label="Categorie">
         {CATEGORIES.map(({ id, name }) => (
-          <option key={id} value={id}>{name}</option>
+          <option key={id} value={id}>
+            {name}
+          </option>
         ))}
       </Field>
     </Section>
@@ -40,11 +52,17 @@ const ItemForm = ({ invalid, handleSubmit, title, onCancel, onSubmit, onRemove, 
           <Button disabled={invalid}>Opslaan</Button>
         </ButtonPairButton>
         <ButtonPairButton>
-          <Button onClick={onCancel} type="button" warning>Annuleren</Button>
+          <Button onClick={onCancel} type="button" warning>
+            Annuleren
+          </Button>
         </ButtonPairButton>
       </ButtonPair>
     </Section>
-    {editMode && <Button onClick={onRemove} type="button" danger>Verwijderen</Button>}
+    {editMode && (
+      <Button onClick={onRemove} type="button" danger>
+        Verwijderen
+      </Button>
+    )}
   </form>
 );
 
@@ -55,7 +73,7 @@ ItemForm.propTypes = {
   onSubmit: PropTypes.func.isRequired,
   title: PropTypes.string.isRequired,
   onRemove: PropTypes.func.isRequired,
-  editMode: PropTypes.bool.isRequired
+  editMode: PropTypes.bool.isRequired,
 };
 
 const ButtonPair = styled.div`
@@ -75,10 +93,10 @@ function mapStateToProps(state) {
   const { responsible, itemType, id } = state.modal;
   const title = capitalize(
     (responsible === SHARED ? 'gezamelijke ' : '') +
-    (itemType === INCOME ? 'inkomst ' : 'uitgave ') +
-    (responsible === MAN ? 'voor Niels ' : '') +
-    (responsible === WOMAN ? 'voor Peggy ' : '') +
-    (id ? 'bewerken' : 'toevoegen')
+      (itemType === INCOME ? 'inkomst ' : 'uitgave ') +
+      (responsible === MAN ? 'voor Niels ' : '') +
+      (responsible === WOMAN ? 'voor Peggy ' : '') +
+      (id ? 'bewerken' : 'toevoegen')
   );
 
   return { title, modal: state.modal, editMode: Boolean(id) };
@@ -94,7 +112,14 @@ function mergeProps(stateProps, dispatchProps, ownProps) {
     editMode,
     ...ownProps,
     onSubmit({ title, amount, category }) {
-      const item = { id, itemType, responsible, title, amount: Number(amount), category };
+      const item = {
+        id,
+        itemType,
+        responsible,
+        title,
+        amount: Number(amount),
+        category,
+      };
       const action = editMode ? dispatchProps.editItem : dispatchProps.addItem;
 
       action(item);
@@ -103,7 +128,7 @@ function mergeProps(stateProps, dispatchProps, ownProps) {
     onRemove() {
       dispatchProps.removeItem(id);
       dispatchProps.closeModal();
-    }
+    },
   };
 }
 
@@ -121,12 +146,16 @@ function validate(values) {
   return errors;
 }
 
-export default connect(mapStateToProps, { closeModal, addItem, editItem, removeItem }, mergeProps)(
+export default connect(
+  mapStateToProps,
+  { closeModal, addItem, editItem, removeItem },
+  mergeProps
+)(
   reduxForm({
     form: 'item',
     initialValues: {
-      category: DEFAULT_CATEGORY
+      category: DEFAULT_CATEGORY,
     },
-    validate
+    validate,
   })(ItemForm)
 );

@@ -34,7 +34,7 @@ setGlobalStyling();
 ReactDOM.render(
   <Provider store={store}>
     <ThemeProvider theme={theme}>
-      <App/>
+      <App />
     </ThemeProvider>
   </Provider>,
   rootEl

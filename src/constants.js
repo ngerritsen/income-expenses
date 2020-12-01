@@ -44,14 +44,14 @@ export const CATEGORIES = [
   { id: 'S1eFHAfcBG', name: 'Huis' },
   { id: 'B1-2ZQqBz', name: 'Kids' },
   { id: 'f3fun3fs', name: 'Abbonementen' },
-  { id: 'g4Dfd-23g', name: 'Verzekeringen' }
+  { id: 'g4Dfd-23g', name: 'Verzekeringen' },
 ];
 
 export const FIREBASE_CONFIG = {
-  apiKey: "AIzaSyBlbjTrwLB2HQN31t40jKxLxFB9-nFge_I",
-  authDomain: "income-expense.firebaseapp.com",
-  databaseURL: "https://income-expense.firebaseio.com",
-  projectId: "firebase-income-expense",
-  storageBucket: "firebase-income-expense.appspot.com",
-  messagingSenderId: "177770040301"
+  apiKey: 'AIzaSyBlbjTrwLB2HQN31t40jKxLxFB9-nFge_I',
+  authDomain: 'income-expense.firebaseapp.com',
+  databaseURL: 'https://income-expense.firebaseio.com',
+  projectId: 'firebase-income-expense',
+  storageBucket: 'firebase-income-expense.appspot.com',
+  messagingSenderId: '177770040301',
 };

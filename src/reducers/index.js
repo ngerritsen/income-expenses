@@ -9,5 +9,5 @@ export default combineReducers({
   form: formReducer,
   authentication: authenticationReducer,
   items: itemsReducer,
-  modal: modalReducer
+  modal: modalReducer,
 });

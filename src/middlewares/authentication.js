@@ -12,7 +12,7 @@ firebase.initializeApp(FIREBASE_CONFIG);
 
 const handleAction = createActionHandler({
   [constants.LOGIN]: login,
-  [constants.LOGOUT]: logout
+  [constants.LOGOUT]: logout,
 });
 
 export default function authenticationMiddleware(store) {
@@ -24,18 +24,12 @@ export default function authenticationMiddleware(store) {
       store.dispatch(actions.getAllItems());
     }
 
-    if (
-      !loggedIn &&
-      (
-        authentication.loggedIn ||
-        !authentication.initialized
-      )
-    ) {
+    if (!loggedIn && (authentication.loggedIn || !authentication.initialized)) {
       store.dispatch(actions.logoutSucceeded());
     }
   });
 
-  return next => action => {
+  return (next) => (action) => {
     handleAction(store, action);
 
     return next(action);

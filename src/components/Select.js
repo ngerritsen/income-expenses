@@ -10,11 +10,7 @@ const Select = ({ input, label, meta, children }) => (
     <SelectField name={name} {...input} error={meta.touched && meta.error}>
       {children}
     </SelectField>
-    {
-      meta.touched &&
-      meta.error &&
-      <SelectError>{meta.error}</SelectError>
-    }
+    {meta.touched && meta.error && <SelectError>{meta.error}</SelectError>}
   </div>
 );
 
@@ -22,20 +18,20 @@ Select.propTypes = {
   input: PropTypes.object.isRequired,
   meta: PropTypes.shape({
     touched: PropTypes.bool,
-    error: PropTypes.string
+    error: PropTypes.string,
   }).isRequired,
   label: PropTypes.string.isRequired,
-  children: PropTypes.node
+  children: PropTypes.node,
 };
 
 const SelectField = styled.select`
   width: 100%;
-  background-color: ${props => props.theme.colors.white};
-  border: 1px solid ${props =>
-    props.error
-      ? props.theme.colors.red
-      : darken(0.15, props.theme.colors.border)
-  };
+  background-color: ${(props) => props.theme.colors.white};
+  border: 1px solid
+    ${(props) =>
+      props.error
+        ? props.theme.colors.red
+        : darken(0.15, props.theme.colors.border)};
   height: 4rem;
   font-size: 1.4rem;
   border-radius: 4px;
@@ -46,18 +42,18 @@ const SelectField = styled.select`
 
   &:focus {
     outline: none;
-    border: 1px solid ${props =>
-      props.error
-        ? darken(0.1, props.theme.colors.red)
-        : props.theme.colors.blue
-    };
+    border: 1px solid
+      ${(props) =>
+        props.error
+          ? darken(0.1, props.theme.colors.red)
+          : props.theme.colors.blue};
   }
 `;
 
 const SelectError = styled.span`
   display: block;
-  padding-top: ${props => props.theme.sizes.xxs};
-  color: ${props => props.theme.colors.red};
+  padding-top: ${(props) => props.theme.sizes.xxs};
+  color: ${(props) => props.theme.colors.red};
 `;
 
 export default Select;

@@ -16,10 +16,10 @@ const Sheet = ({ responsible, title }) => {
         <Title>{title}</Title>
         <Lists>
           <ListContainer>
-            <List responsible={responsible} itemType={INCOME}/>
+            <List responsible={responsible} itemType={INCOME} />
           </ListContainer>
           <ListContainer>
-            <List responsible={responsible} itemType={EXPENSE}/>
+            <List responsible={responsible} itemType={EXPENSE} />
           </ListContainer>
         </Lists>
       </Container>
@@ -29,20 +29,20 @@ const Sheet = ({ responsible, title }) => {
 
 Sheet.propTypes = {
   responsible: PropTypes.string.isRequired,
-  title: PropTypes.string.isRequired
+  title: PropTypes.string.isRequired,
 };
 
 const Lists = styled.div`
-  @media screen and (min-width: ${props => props.theme.mobile}) {
+  @media screen and (min-width: ${(props) => props.theme.mobile}) {
     display: flex;
   }
 `;
 
 const ListContainer = styled.div`
-  margin-bottom: ${props => props.theme.sizes.md};
+  margin-bottom: ${(props) => props.theme.sizes.md};
 
-  @media screen and (min-width: ${props => props.theme.mobile}) {
-    margin-right: ${props => props.theme.sizes.md};
+  @media screen and (min-width: ${(props) => props.theme.mobile}) {
+    margin-right: ${(props) => props.theme.sizes.md};
     width: 50%;
 
     &:last-child {

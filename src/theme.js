@@ -4,7 +4,7 @@ const WHITE = '#fff';
 const BLACK = '#000';
 const BASE_SIZE = 0.8;
 
-const getSize = n => (BASE_SIZE * n).toFixed(1) + 'rem';
+const getSize = (n) => (BASE_SIZE * n).toFixed(1) + 'rem';
 
 const theme = {
   colors: {
@@ -18,7 +18,7 @@ const theme = {
     red: '#fc5c65',
     orange: '#fd9644',
     green: '#26de81',
-    coin: '#fed330'
+    coin: '#fed330',
   },
   mobile: '750px',
   sizes: {
@@ -28,8 +28,8 @@ const theme = {
     md: getSize(3),
     lg: getSize(4),
     xl: getSize(5),
-    xxl: getSize(6)
-  }
+    xxl: getSize(6),
+  },
 };
 
 export default theme;

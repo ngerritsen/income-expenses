@@ -21,10 +21,12 @@ export function edit(item) {
 }
 
 export function editMultiple(items) {
-  return getItemsRef().update(items.reduce((updates, item) => ({
-    ...updates,
-    [item.id]: item
-  })));
+  return getItemsRef().update(
+    items.reduce((updates, item) => ({
+      ...updates,
+      [item.id]: item,
+    }))
+  );
 }
 
 function getItemsRef() {

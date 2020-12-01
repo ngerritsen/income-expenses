@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { initialize } from 'redux-form';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEdit } from '@fortawesome/pro-solid-svg-icons';
+import { faEdit } from '@fortawesome/free-solid-svg-icons/faEdit';
 
 import { INCOME, EXPENSE, SALDO, DEFAULT_CATEGORY } from '../constants';
 import { toCurrency } from '../helpers/formatting';
@@ -21,14 +21,12 @@ const Item = ({ amount, calculated, dirty, title, itemType, handleEdit }) => (
       >
         {toCurrency(amount)}
       </ItemAmount>
-      {
-        itemType !== SALDO &&
-        !calculated &&
+      {itemType !== SALDO && !calculated && (
         <ItemEdit onClick={handleEdit}>
-          <FontAwesomeIcon icon={faEdit}/>
+          <FontAwesomeIcon icon={faEdit} />
         </ItemEdit>
-      }
-      {(itemType === SALDO  || calculated) && <ItemEdit/>}
+      )}
+      {(itemType === SALDO || calculated) && <ItemEdit />}
     </ItemContent>
   </ItemContainer>
 );
@@ -42,33 +40,33 @@ Item.propTypes = {
   itemType: PropTypes.string,
   saldo: PropTypes.bool,
   title: PropTypes.string.isRequired,
-  handleEdit: PropTypes.func.isRequired
+  handleEdit: PropTypes.func.isRequired,
 };
 
 const ItemContainer = styled.div`
-  border-bottom: 1px solid ${props => props.theme.colors.border};
+  border-bottom: 1px solid ${(props) => props.theme.colors.border};
 `;
 
 const ItemContent = styled.div`
-  opacity: ${props => props.dirty ? 0.5 : 1};
+  opacity: ${(props) => (props.dirty ? 0.5 : 1)};
   display: flex;
   align-items: center;
   padding: 1.2rem 0;
-  color: ${props => props.calculated ? props.theme.colors.grey : 'inherit'}
+  color: ${(props) => (props.calculated ? props.theme.colors.grey : 'inherit')};
 `;
 
 const ItemTitle = styled.div`
   flex-grow: 1;
-  font-weight: ${props => props.itemType === SALDO ? 'bold' : 'regular'};
-  margin-right: ${props => props.theme.sizes.sm};
+  font-weight: ${(props) => (props.itemType === SALDO ? 'bold' : 'regular')};
+  margin-right: ${(props) => props.theme.sizes.sm};
   cursor: pointer;
 `;
 
 const ItemAmount = styled.div`
-  margin-right: ${props => props.theme.sizes.sm};
-  opacity: ${props => props.calculated ? 0.7 : 1};
-  font-weight: ${props => props.itemType === SALDO ? 'bold' : 'regular'};
-  color: ${props => {
+  margin-right: ${(props) => props.theme.sizes.sm};
+  opacity: ${(props) => (props.calculated ? 0.7 : 1)};
+  font-weight: ${(props) => (props.itemType === SALDO ? 'bold' : 'regular')};
+  color: ${(props) => {
     switch (props.itemType) {
       case EXPENSE:
         return props.theme.colors.red;
@@ -79,18 +77,18 @@ const ItemAmount = styled.div`
           ? props.theme.colors.red
           : props.theme.colors.foreground;
     }
-  }}
+  }};
 `;
 
 const ItemEdit = styled.div`
-  color: ${props => props.theme.colors.grey};
+  color: ${(props) => props.theme.colors.grey};
   position: relative;
   top: 0.15rem;
   width: 2.2rem;
 
   &:focus,
   &:hover {
-    color: ${props => props.theme.colors.blue};
+    color: ${(props) => props.theme.colors.blue};
     cursor: pointer;
   }
 `;
@@ -105,12 +103,14 @@ function mapDispatchToProps(dispatch, ownProps) {
   return {
     handleEdit() {
       dispatch(openEditModal(id, itemType, responsible));
-      dispatch(initialize('item', {
-        title,
-        category: category || DEFAULT_CATEGORY,
-        amount
-      }));
-    }
+      dispatch(
+        initialize('item', {
+          title,
+          category: category || DEFAULT_CATEGORY,
+          amount,
+        })
+      );
+    },
   };
 }
 

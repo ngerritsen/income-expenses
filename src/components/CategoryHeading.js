@@ -4,24 +4,24 @@ import PropTypes from 'prop-types';
 import { lighten } from 'polished';
 
 const CategoryHeading = ({ title }) => (
-  <CategoryHeadingContainer>
-    {title}
-  </CategoryHeadingContainer>
+  <CategoryHeadingContainer>{title}</CategoryHeadingContainer>
 );
 
 CategoryHeading.propTypes = {
-  title: PropTypes.string.isRequired
+  title: PropTypes.string.isRequired,
 };
 
 const CategoryHeadingContainer = styled.div`
-  border-bottom: 1px solid ${props => lighten(0.3, props.theme.colors.highlight)};
-  color: ${props => props.theme.colors.highlight};
-  padding: ${props => props.theme.sizes.sm} 0 ${props => props.theme.sizes.xs};
+  border-bottom: 1px solid
+    ${(props) => lighten(0.3, props.theme.colors.highlight)};
+  color: ${(props) => props.theme.colors.highlight};
+  padding: ${(props) => props.theme.sizes.sm} 0
+    ${(props) => props.theme.sizes.xs};
   font-size: 1.4rem;
   font-weight: bold;
 
   &:first-child {
-    padding-top: ${props => props.theme.sizes.xxs};
+    padding-top: ${(props) => props.theme.sizes.xxs};
   }
 `;
 

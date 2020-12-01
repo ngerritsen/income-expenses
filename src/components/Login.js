@@ -18,12 +18,19 @@ const Login = ({ handleSubmit, onSubmit, invalid }) => {
         <Title>Login</Title>
         <form onSubmit={handleSubmit(onSubmit)}>
           <Section>
-            <Field component={Input} type="text" name="email" label="E-mail"/>
+            <Field component={Input} type="text" name="email" label="E-mail" />
           </Section>
           <Section size="md">
-            <Field component={Input} type="password" name="password" label="Wachtwoord"/>
+            <Field
+              component={Input}
+              type="password"
+              name="password"
+              label="Wachtwoord"
+            />
           </Section>
-          <Button type="submit" disabled={invalid}>Inloggen</Button>
+          <Button type="submit" disabled={invalid}>
+            Inloggen
+          </Button>
         </form>
       </Container>
     </PageSection>
@@ -33,7 +40,7 @@ const Login = ({ handleSubmit, onSubmit, invalid }) => {
 Login.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
-  invalid: PropTypes.bool.isRequired
+  invalid: PropTypes.bool.isRequired,
 };
 
 function validate(values) {
@@ -58,13 +65,16 @@ function mapDispatchToProps(dispatch) {
   return {
     onSubmit({ email, password }) {
       dispatch(login(email, password));
-    }
+    },
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(
   reduxForm({
     form: 'login',
-    validate
+    validate,
   })(Login)
 );

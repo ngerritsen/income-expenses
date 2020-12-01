@@ -12,15 +12,11 @@ const Modal = ({ isOpen, children }) => {
   }
 
   return ReactDOM.createPortal(
-    (
-      <ModalOverlay>
-        <PageSection>
-          <Container narrow>
-            {children}
-          </Container>
-        </PageSection>
-      </ModalOverlay>
-    ),
+    <ModalOverlay>
+      <PageSection>
+        <Container narrow>{children}</Container>
+      </PageSection>
+    </ModalOverlay>,
     document.getElementById('modal-root')
   );
 };
@@ -29,8 +25,8 @@ Modal.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
-    PropTypes.node
-  ]).isRequired
+    PropTypes.node,
+  ]).isRequired,
 };
 
 const ModalOverlay = styled.div`

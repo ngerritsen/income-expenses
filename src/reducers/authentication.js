@@ -3,19 +3,19 @@ import * as constants from '../constants';
 
 const initialState = {
   initialized: false,
-  loggedIn: false
+  loggedIn: false,
 };
 
 const reducerMap = {
   [constants.LOGIN_SUCCEEDED]: loginSucceeded,
-  [constants.LOGOUT_SUCCEEDED]: logoutSucceeded
+  [constants.LOGOUT_SUCCEEDED]: logoutSucceeded,
 };
 
 function loginSucceeded(state) {
   return {
     ...state,
     initialized: true,
-    loggedIn: true
+    loggedIn: true,
   };
 }
 
@@ -23,7 +23,7 @@ function logoutSucceeded(state) {
   return {
     ...state,
     initialized: true,
-    loggedIn: false
+    loggedIn: false,
   };
 }
 

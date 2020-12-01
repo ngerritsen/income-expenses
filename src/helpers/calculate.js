@@ -11,26 +11,31 @@ export function calculateSummary(items, responsible) {
     totalExpense: calculateTotal(items, responsible, EXPENSE),
     investmentMan: investments[MAN],
     investmentWoman: investments[WOMAN],
-    saldo: calculateFinalSaldo(saldo, investments, responsible)
+    saldo: calculateFinalSaldo(saldo, investments, responsible),
   };
 }
 
 function calculateTotal(items, responsible, itemType) {
   return items
-    .filter(item => item.itemType === itemType && item.responsible === responsible)
-    .reduce((total, item) => item.amount + total, 0)
+    .filter(
+      (item) => item.itemType === itemType && item.responsible === responsible
+    )
+    .reduce((total, item) => item.amount + total, 0);
 }
 
 function calculateInitialSaldos(items) {
   return {
     [MAN]: calculateInitialSaldo(items, MAN),
     [WOMAN]: calculateInitialSaldo(items, WOMAN),
-    [SHARED]: calculateInitialSaldo(items, SHARED)
+    [SHARED]: calculateInitialSaldo(items, SHARED),
   };
 }
 
 function calculateInitialSaldo(items, responsible) {
-  return calculateTotal(items, responsible, INCOME) - calculateTotal(items, responsible, EXPENSE);
+  return (
+    calculateTotal(items, responsible, INCOME) -
+    calculateTotal(items, responsible, EXPENSE)
+  );
 }
 
 function calculateFinalSaldo(saldo, investments, responsible) {
@@ -57,7 +62,7 @@ function calculateInvestment(saldos, responsible) {
     return 0;
   }
 
-  const investment = saldo / totalSaldo * sharedInvestmentNeeded;
+  const investment = (saldo / totalSaldo) * sharedInvestmentNeeded;
 
   if (investment > saldo) {
     return saldo;
