@@ -22,6 +22,10 @@ export const LOGOUT = 'LOGOUT';
 export const LOGOUT_SUCCEEDED = 'LOGOUT_SUCCEEDED';
 export const LOGOUT_FAILED = 'LOGOUT_FAILED';
 
+export const OPEN_EDIT_MODAL = 'OPEN_EDIT_MODAL';
+export const OPEN_ADD_MODAL = 'OPEN_ADD_MODAL';
+export const CLOSE_MODAL = 'CLOSE_MODAL';
+
 export const MAN = 'man';
 export const WOMAN = 'woman';
 export const SHARED = 'shared';
@@ -29,10 +33,6 @@ export const SHARED = 'shared';
 export const INCOME = 'income';
 export const EXPENSE = 'expense';
 export const SALDO = 'saldo';
-
-export const OPEN_EDIT_MODAL = 'OPEN_EDIT_MODAL';
-export const OPEN_ADD_MODAL = 'OPEN_ADD_MODAL';
-export const CLOSE_MODAL = 'CLOSE_MODAL';
 
 export const DEFAULT_CATEGORY = 'r1PSAfcSf';
 export const CATEGORIES = [
