@@ -1,11 +1,10 @@
 import 'babel-polyfill';
+import './firebase';
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { ThemeProvider, injectGlobal } from 'styled-components';
-import 'firebase/app';
-import 'firebase/auth';
-import 'firebase/database';
 
 import theme from './theme';
 import store from './store';

@@ -1,34 +1,37 @@
 import firebase from 'firebase/app';
 
-import { objectToArray } from '../helpers/utility';
-
 export async function getAll() {
-  const data = (await getItemsRef().once('value')).val();
+  const data = [];
+  const snapshots = await getItems().get();
 
-  return data ? objectToArray(data) : [];
+  snapshots.forEach((snapshot) => data.push(snapshot.data()));
+
+  return data;
 }
 
 export function add(id, item) {
-  return getItemsRef().child(id).set(item);
+  return getItems().doc(id).set(serializeItem(item));
 }
 
 export function remove(id) {
-  return getItemsRef().child(id).remove();
+  return getItems().doc(id).delete();
 }
 
 export function edit(item) {
-  return getItemsRef().child(item.id).update(item);
+  return getItems().doc(item.id).update(serializeItem(item));
 }
 
-export function editMultiple(items) {
-  return getItemsRef().update(
-    items.reduce((updates, item) => ({
-      ...updates,
-      [item.id]: item,
-    }))
-  );
+function getItems() {
+  return firebase.firestore().collection('items');
 }
 
-function getItemsRef() {
-  return firebase.database().ref('items');
+function serializeItem(item) {
+  return {
+    amount: item.amount,
+    category: item.category,
+    id: item.id,
+    itemType: item.itemType,
+    responsible: item.responsible,
+    title: item.title,
+  };
 }

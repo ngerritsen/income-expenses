@@ -2,13 +2,9 @@
 
 import { createActionHandler } from 'redux-map-action-handlers';
 
-import firebase from 'firebase/app';
 import * as authenticationService from '../services/authenticationService';
 import * as constants from '../constants';
 import * as actions from '../actions';
-import { FIREBASE_CONFIG } from '../constants';
-
-firebase.initializeApp(FIREBASE_CONFIG);
 
 const handleAction = createActionHandler({
   [constants.LOGIN]: login,

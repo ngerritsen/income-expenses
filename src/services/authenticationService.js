@@ -1,4 +1,4 @@
-import firebase from 'firebase/app';
+import * as firebase from 'firebase';
 
 export function onLoginStateChange(callback) {
   firebase.auth().onAuthStateChanged((user) => {
