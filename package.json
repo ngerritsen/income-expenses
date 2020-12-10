@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server",
-    "build": "rm -Rf dist; mkdir dist; cp favicon.png dist; NODE_ENV=production webpack",
+    "build": "rm -Rf dist; mkdir dist; cp in-uit.webmanifest dist; cp -r src/images dist/; NODE_ENV=production webpack",
     "test": "concurrently 'eslint .' 'prettier --check .'",
     "fix": "concurrently 'eslint . --fix' 'prettier --write .'"
   },

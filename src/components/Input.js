@@ -34,9 +34,7 @@ const InputField = styled.input`
   background-color: ${(props) => props.theme.colors.background};
   border: 1px solid
     ${(props) =>
-      props.error
-        ? props.theme.colors.red
-        : props.theme.colors.border};
+      props.error ? props.theme.colors.red : props.theme.colors.border};
   padding: 1rem;
   font-size: 1.4rem;
   border-radius: 4px;
