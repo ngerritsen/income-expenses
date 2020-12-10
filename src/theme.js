@@ -41,5 +41,6 @@ export const dark = {
     background: lighten(0.1, BLACK),
     foreground: WHITE,
     border: lighten(0.2, BLACK),
+    highlight: '#5e768c',
   },
 };
