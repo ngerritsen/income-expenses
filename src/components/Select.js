@@ -26,7 +26,7 @@ Select.propTypes = {
 
 const SelectField = styled.select`
   width: 100%;
-  background-color: ${(props) => props.theme.colors.white};
+  background-color: ${(props) => props.theme.colors.background};
   border: 1px solid
     ${(props) =>
       props.error
@@ -35,6 +35,7 @@ const SelectField = styled.select`
   height: 4rem;
   font-size: 1.4rem;
   border-radius: 4px;
+  color: ${(props) => props.theme.colors.foreground};
 
   &:hover {
     cursor: pointer;

@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 import React from 'react';
 import PropTypes from 'prop-types';
-import { darken } from 'polished';
 import { connect } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDollarSign } from '@fortawesome/free-solid-svg-icons/faDollarSign';
@@ -56,9 +55,9 @@ const HeaderBar = styled.header`
   top: 0;
   width: 100%;
   z-index: ${(props) => (props.asPlaceholder ? 'inherit' : 2)};
-  background-color: ${(props) => props.theme.colors.white};
+  background-color: ${(props) => props.theme.colors.background};
   height: 6rem;
-  border-bottom: 1px solid ${(props) => darken(0.05, props.theme.colors.white)};
+  border-bottom: 1px solid ${(props) => props.theme.colors.border};
 
   @media screen and (min-width: ${(props) => props.theme.mobile}) {
     height: 8rem;

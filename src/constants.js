@@ -26,6 +26,9 @@ export const OPEN_EDIT_MODAL = 'OPEN_EDIT_MODAL';
 export const OPEN_ADD_MODAL = 'OPEN_ADD_MODAL';
 export const CLOSE_MODAL = 'CLOSE_MODAL';
 
+export const ACTIVATE_DARK_MODE = 'ACTIVATE_DARK_MODE';
+export const DEACTIVATE_DARK_MODE = 'DEACTIVATE_DARK_MODE';
+
 export const MAN = 'man';
 export const WOMAN = 'woman';
 export const SHARED = 'shared';

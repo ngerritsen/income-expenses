@@ -67,3 +67,8 @@ export const openAddModal = (itemType, responsible) => ({
 });
 
 export const closeModal = () => ({ type: constants.CLOSE_MODAL });
+
+export const activateDarkMode = () => ({ type: constants.ACTIVATE_DARK_MODE });
+export const deactivateDarkMode = () => ({
+  type: constants.DEACTIVATE_DARK_MODE,
+});

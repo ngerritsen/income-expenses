@@ -6,10 +6,11 @@ const BASE_SIZE = 0.8;
 
 const getSize = (n) => (BASE_SIZE * n).toFixed(1) + 'rem';
 
-const theme = {
+export const light = {
   colors: {
-    background: lighten(0.1, '#d1d8e0'),
     white: WHITE,
+    background: WHITE,
+    backgroundSubtle: lighten(0.1, '#d1d8e0'),
     foreground: lighten(0.1, BLACK),
     border: darken(0.1, WHITE),
     highlight: '#4b6584',
@@ -32,4 +33,13 @@ const theme = {
   },
 };
 
-export default theme;
+export const dark = {
+  ...light,
+  colors: {
+    ...light.colors,
+    backgroundSubtle: lighten(0.15, BLACK),
+    background: lighten(0.1, BLACK),
+    foreground: WHITE,
+    border: lighten(0.2, BLACK),
+  },
+};
